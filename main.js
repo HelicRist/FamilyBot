@@ -51,7 +51,14 @@ client.on('voiceStateUpdate', (oldState, newState) => {
 })
 
 client.on('ready', () => {
-    console.log(('Logged in as ' + client.user.tag).green);
+    console.log((`Logged in as  ${client.user.tag}. Prefix: ${config.prefix}`).green);
+
+    client.user.setActivity(`${config.prefix}help  `, {
+        type: 'STREAMING',
+        url: 'https://www.youtube.com/watch?v=5qap5aO4i9A'
+
+    });
+
 })
 
 client.login(process.env.TOKEN);
