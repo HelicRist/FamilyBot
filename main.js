@@ -39,8 +39,17 @@ client.on('message', message => {
     }
 })
 
-client.on('voiceUpdate', (oldState, newState) => {
+client.on('voiceStateUpdate', (oldState, newState) => {
+    let oldChannel = oldState.channelID;
+    let newChannel = newState.channelID;
 
+    let member;
+    console.log(newChannel);
+    if (newChannel === config.createChannelID) {
+        member = newState.member;
+        client.commands.get('voice').run(member, client, 'create', oldState);
+    }
+    client.commands.get('voice').run(member, client, 'delete', oldState);
 })
 
 client.on('ready', () => {
