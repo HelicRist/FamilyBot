@@ -10,11 +10,11 @@ module.exports = {
     description: 'Crea stanze vocali temporanee',
 
     run: async(member, client, action, oldState) => {
+        let channelName = emojis[Math.floor(Math.random() * emojis.length)] + randomWords(3).join(" ") + emojis[Math.floor(Math.random() * emojis.length)] + '#';
         switch (action) {
             case 'create':
                 const guild = client.guilds.cache.map(guild => guild);
                 let channels = guild[0].channels;
-                let channelName = emojis[Math.floor(Math.random() * emojis.length)]+randomWords(3).join(" ")+ emojis[Math.floor(Math.random() * emojis.length)]+'#';
 
                 channels
                     .create(channelName, {
@@ -26,14 +26,28 @@ module.exports = {
 
                         let logVoice = {
                             title: 'Creato canale vocale',
+                            description: `${member} => ${channelName}`,
+                            color: '#18f02e'
                         }
+
+                        client.channels.cache.get(config.voiceLogChannelID).send({ embed: logVoice });
                     })
                     .catch(console.error);
                 break;
 
             case 'delete':
-                if (oldState.channel.name.endsWith('#') && oldState.channel.members.size < 1) {
-                    oldState.channel.delete().catch(console.error);
+                if (oldState) {
+                    if (oldState.channel.name.endsWith('#') && oldState.channel.members.size < 1) {
+                        oldState.channel.delete().catch(console.error);
+
+                        let logVoice = {
+                            title: 'Cancellato canale vocale',
+                            description: `${member} => ${oldState.channel.name}`,
+                            color: '#f01818'
+                        }
+
+                        client.channels.cache.get(config.voiceLogChannelID).send({ embed: logVoice });
+                    }
                 }
                 break;
 

@@ -43,10 +43,8 @@ client.on('voiceStateUpdate', (oldState, newState) => {
     let oldChannel = oldState.channelID;
     let newChannel = newState.channelID;
 
-    let member;
-    console.log(newChannel);
+    let member = newState.member;
     if (newChannel === config.createChannelID) {
-        member = newState.member;
         client.commands.get('voice').run(member, client, 'create', oldState);
     }
     client.commands.get('voice').run(member, client, 'delete', oldState);
