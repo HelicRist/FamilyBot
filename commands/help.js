@@ -1,10 +1,11 @@
 const { Message } = require("discord.js");
 const fs = require("fs");
+const config = require('../config.json');
 
 module.exports = {
     name: 'help',
     description: 'Help command',
-
+    //TODO: help args in base alla categoria di comandi (music, fun...)
     run: async(client, message, args) => {
         let commands = []
         client.commands.map(cmd => commands.push(cmd));
@@ -19,11 +20,11 @@ module.exports = {
 
         let helpEmbed = {
             title: "Help List",
-            description: `Lista dei comandi che il bot offre. Per proposte contattare <@617745189670223911> o <@342343548718284801>`,
-            author: { name: 'Friendly Bot', icon_url: 'https://i.imgur.com/6A2jQnm.jpeg', url: 'https://i.imgur.com/6A2jQnm.jpeg' },
+            description: `Lista dei comandi che il bot offre. Per proposte contattare ${config.idRimaro.toString()} o ${config.idHeldin.toString()}`,
+            author: { name: 'Friendly Bot', icon_url: config.iconUrl, url: config.iconUrl},
             fields: fields,
             color: '#18f0af',
-            thumbnail: { url: 'https://i.imgur.com/6A2jQnm.jpeg' },
+            thumbnail: { url: config.iconUrl },
 
         }
 
