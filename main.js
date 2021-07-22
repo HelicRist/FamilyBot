@@ -51,13 +51,18 @@ client.on('voiceStateUpdate', (oldState, newState) => {
 })
 
 client.on('ready', () => {
+    const botStatus =[
+        `${config.prefix}help`,
+        `with depression`,
+        `you creeply`
+    ]
     console.log((`Logged in as  ${client.user.tag}. Prefix: ${config.prefix}`).green);
 
-    client.user.setActivity(`${config.prefix}help  `, {
-        type: 'STREAMING',
-        url: 'https://www.youtube.com/watch?v=5qap5aO4i9A'
-
-    });
+    setInterval(function() {  
+        let status = botStatus[Math.floor(Math.random() * botStatus.length)];
+        client.user.setActivity(status, {type: "WATCHING"});
+    
+        }, 5000)
 
 })
 
