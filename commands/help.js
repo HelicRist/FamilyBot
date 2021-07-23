@@ -5,6 +5,7 @@ const config = require('../config.json');
 module.exports = {
     name: 'help',
     description: 'Help command',
+    aliases: ['commands', 'command-list'],
     //TODO: help args in base alla categoria di comandi (music, fun...)
     run: async(client, message, args) => {
         let commands = []
