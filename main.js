@@ -1,17 +1,20 @@
 const discord = require('discord.js');
 const config = require('./config.json');
-const colors = require('colors');
+require('colors');
 require('dotenv').config();
 
 const client = new discord.Client();
 client.commands = new discord.Collection();
 const fs = require('fs');
 
-const commandFIles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFolders = fs.readdirSync('./commands');
 
-for (const file of commandFIles) {
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
+for(const folder of commandFolders){
+    const commandFIles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+    for (const file of commandFIles) {
+        const command = require(`./commands/${folder}/${file}`);
+        client.commands.set(command.name, command);
+    }
 }
 
 client.on('message', message => {
@@ -40,7 +43,7 @@ client.on('message', message => {
     }
 })
 
-client.on('voiceStateUpdate', (oldState, newState) => {
+/*client.on('voiceStateUpdate', (oldState, newState) => {
     let oldChannel = oldState.channelID;
     let newChannel = newState.channelID;
 
@@ -49,21 +52,16 @@ client.on('voiceStateUpdate', (oldState, newState) => {
         client.commands.get('voice').run(member, client, 'create', oldState);
     }
     client.commands.get('voice').run(member, client, 'delete', oldState);
-})
+})*/
 
 client.on('ready', () => {
-    const botStatus = [
-        `${config.prefix}help`,
-        `with depression`,
-        `you creeply`
-    ]
     console.log((`Logged in as  ${client.user.tag}. Prefix: ${config.prefix}`).green);
 
-    setInterval(function () {
-        let status = botStatus[Math.floor(Math.random() * botStatus.length)];
-        client.user.setActivity(status, { type: "WATCHING" });
+    client.user.setActivity(`${config.prefix}help  `, {
+        type: 'STREAMING',
+        url: 'https://www.youtube.com/watch?v=5qap5aO4i9A'
 
-    }, 5000)
+    });
 
 })
 
