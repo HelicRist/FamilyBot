@@ -1,31 +1,34 @@
 const { Message } = require("discord.js");
 const fs = require("fs");
+const config = require('../../config.json');
 
 module.exports = {
     name: 'help',
     description: 'Help command',
-
     run: async(client, message, args) => {
-        let commands = []
-        client.commands.map(cmd => commands.push(cmd));
-
-        let fields = []
-        commands.forEach(cmd => {
+        let fields = [];
+        const commandFolders = fs.readdirSync('./commands');
+        for (const folder of commandFolders) {
+            const commandFIles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+            let commands = '';
+            for (const file of commandFIles) {
+                const command = require(`../../commands/${folder}/${file}`);
+                commands += `${command.name}, `
+            }
             fields.push({
-                name: cmd.name,
-                value: cmd.description,
-            })
-        })
-
-        let helpEmbed = {
-            title: "Help List",
-            description: `Lista dei comandi che il bot offre. Per proposte contattare <@617745189670223911> o <@342343548718284801>`,
-            author: { name: 'Friendly Bot', icon_url: 'https://i.imgur.com/6A2jQnm.jpeg', url: 'https://i.imgur.com/6A2jQnm.jpeg' },
-            fields: fields,
-            color: '#18f0af',
-            thumbnail: { url: 'https://i.imgur.com/6A2jQnm.jpeg' },
-
+                name: folder,
+                value: commands,
+            });
         }
+
+        const helpEmbed = {
+            title: 'Help',
+            author: { name: 'Friendly Bot', icon_url: 'https://i.imgur.com/6A2jQnm.jpeg', url: 'https://i.imgur.com/6A2jQnm.jpeg' },
+            description: 'Lista dei comandi che il bot offre.\nPer proposte, scrivere in <#867506577719296010>',
+            color: '18f0af',
+            fields: fields,
+            thumbnail: { url: 'https://i.imgur.com/6A2jQnm.jpeg' },
+        };
 
         message.channel.send({ embed: helpEmbed });
     }
