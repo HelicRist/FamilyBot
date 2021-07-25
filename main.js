@@ -19,7 +19,8 @@ client.on('message', message => {
     if (message.content.startsWith(config.prefix)) {
         const command = message.content.split(' ')[0].slice(config.prefix.length);
         const args = message.content.split(' ').slice(1);
-        const commandObject = client.commands.get(command);
+        const commandObject = client.commands.get(command)
+            || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
         if (commandObject) {
             commandObject.run(client, message, args);
 
@@ -51,7 +52,19 @@ client.on('voiceStateUpdate', (oldState, newState) => {
 })
 
 client.on('ready', () => {
-    console.log(('Logged in as ' + client.user.tag).green);
+    const botStatus = [
+        `${config.prefix}help`,
+        `with depression`,
+        `you creeply`
+    ]
+    console.log((`Logged in as  ${client.user.tag}. Prefix: ${config.prefix}`).green);
+
+    setInterval(function () {
+        let status = botStatus[Math.floor(Math.random() * botStatus.length)];
+        client.user.setActivity(status, { type: "WATCHING" });
+
+    }, 5000)
+
 })
 
 client.login(process.env.TOKEN);

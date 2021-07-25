@@ -21,7 +21,10 @@
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "install": "^0.13.0",
+    "node.js": "0.0.1-security",
     "npm": "^7.20.0",
-    "random-words": "^1.1.1"
+    "r34api.js": "^1.1.5",
+    "random-words": "^1.1.1",
+    "rule34": "^1.0.0"
   }
 }
