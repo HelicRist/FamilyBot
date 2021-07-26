@@ -1,5 +1,4 @@
 
-const rule34 = require('rule34')
 const r34api = new (require('r34api.js'));
 const { MessageEmbed } = require('discord.js');
 const config = require('../../config.json');
