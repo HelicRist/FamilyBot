@@ -6,7 +6,7 @@ module.exports = {
     name: "poll",
     aliases: ["domanda"],
     description: `Crea una poll. ${config.prefix}poll <domanda>-<opzione1>-<opzione2>`,
-    category: "utility",
+    category: "fun",
     run: async (client, message, args) => {
 
         let embed = new MessageEmbed().setTitle("vuoto");
