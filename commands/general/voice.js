@@ -16,7 +16,6 @@ module.exports = {
             case 'create':
                 const guild = client.guilds.cache.map(guild => guild);
                 let channels = guild[0].channels;
-
                 channels
                     .create(channelName, {
                         type: 'voice',
