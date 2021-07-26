@@ -43,7 +43,7 @@ client.on('message', message => {
     }
 })
 
-/*client.on('voiceStateUpdate', (oldState, newState) => {
+client.on('voiceStateUpdate', (oldState, newState) => {
     let oldChannel = oldState.channelID;
     let newChannel = newState.channelID;
 
@@ -52,7 +52,7 @@ client.on('message', message => {
         client.commands.get('voice').run(member, client, 'create', oldState);
     }
     client.commands.get('voice').run(member, client, 'delete', oldState);
-})*/
+})
 
 client.on('ready', () => {
     console.log((`Logged in as  ${client.user.tag}. Prefix: ${config.prefix}`).green);
