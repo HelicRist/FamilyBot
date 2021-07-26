@@ -64,7 +64,7 @@ client.on('ready', () => {
 
     setInterval(function () {
         let status = botStatus[Math.floor(Math.random() * botStatus.length)];
-        client.user.setActivity(status, { type: "WATCHING" });
+        client.user.setActivity(status, { type: "STREAMING", url: 'https://www.twitch.tv/relaxbeats' });
 
     }, 5000)
 
