@@ -14,7 +14,7 @@ module.exports = {
         let domanda;
         let risposte = [];
         let qna;
-        if (args.length < 1) return message.reply(`usa "${config.prefix}poll <domanda>-<opzione1>-<opzione2>"`);
+        if (args.length < 1) return message.reply(`usa "${config.prefix}poll <domanda>;<opzione1>;<opzione2>"`);
         //domanda si o no
         qna = args.join(" ").split(";")
         domanda = qna[0]
