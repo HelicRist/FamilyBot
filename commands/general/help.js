@@ -2,9 +2,13 @@ const { Message } = require("discord.js");
 const fs = require("fs");
 const config = require('../../config.json');
 
+
 module.exports = {
     name: 'help',
-    description: 'Help command',
+    description: `Comando help. ${config.prefix}help (nomeComando)`,
+    aliases: ['command', 'commands', 'aiuto'],
+    category: 'general',
+
     run: async (client, message, args) => {
         if (!args[0]) {
             let fields = [];

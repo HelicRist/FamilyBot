@@ -8,6 +8,7 @@ module.exports = {
     name: 'anime',
     description: 'mostra una lista di anime da guardare suddivisa in categorie',
     aliases: ['a'],
+    category: ['anime'],
 
     run: async(client, message, args) => {
         let animeTitle = '';

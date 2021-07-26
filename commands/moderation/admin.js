@@ -1,10 +1,11 @@
-
+const config = require('../../config.json');
 
 module.exports = {
     name: "admin",
     aliases: ["admin"],
-    description: "Mod teporaneo, non abusarne",
+    description: `Mod teporaneo, non abusarne. ${config.prefix}admin`,
     category: "moderation",
+    
     run: async (client, message, args) => {
         console.log("fa");
         const e1 = message.guild.emojis.cache.find(emoji => emoji.name === 'go');

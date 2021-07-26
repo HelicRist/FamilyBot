@@ -2,10 +2,13 @@
 const rule34 = require('rule34')
 const r34api = new (require('r34api.js'));
 const { MessageEmbed } = require('discord.js');
+const config = require('../../config.json');
+
 module.exports = {
     name: 'rule34',
     aliases: ['34', 'r34'],
-    description: 'Cerca su Rule34',
+    description: `Cerca su Rule34. ${config.prefix}r34 parametro`,
+    category: 'fun',
 
     run: async (client, message, args) => {
         let embed = new MessageEmbed()
