@@ -1,6 +1,6 @@
 
 const { Client, MessageEmbed, MessageManager } = require('discord.js');
-
+let started = false;
 module.exports = {
     name: "roulette",
     description: "russian roulette, enjoy",
@@ -30,41 +30,45 @@ module.exports = {
         });
 
         setTimeout(() => {
-
-            if (players.length < 1) return message.channel.send(`Nessuno vuole giocare? ):`);
-            if (players.length < 2) return message.channel.send(`Questo è suicidio... mi piace ma non è una roulette russa da soli`);
-            let i = 0
-            let scelta;
-            message.channel.send(`FUCK THE SUSPANCE`)
-
-            while (i < players.length && players.length > 1) {
-                scelta = sixshooter[Math.floor(Math.random() * sixshooter.length)]
-                message.channel.send(`${players[i]}, tocca a te...`)
+            started = true;
+            // console.log(started);
+            if (started) {
+                console.log(started);
+                if (players.length < 1) return message.channel.send(`Nessuno vuole giocare? ):`);
+                if (players.length < 2) return message.channel.send(`Questo è suicidio... mi piace ma non è una roulette russa da soli`);
+                let i = 0
+                let scelta;
+                //message.channel.send(`FUCK THE SUSPANCE`)
                 // setTimeout(() => {
-                message.channel.send(`${scelta}`)
-                //  }, 600);
 
-                if (scelta === 'unlucky bro ☠️') {
-                    players.splice(i, 1);
-                    message.channel.send("Ricarico la rivoltella... 🔥")
-                    sixshooter = [
-                        `sei salvo, per ora... 🔫`,
-                        `sei salvo, per ora... 🔫`,
-                        `sei salvo, per ora... 🔫`,
-                        `sei salvo, per ora... 🔫`,
-                        `sei salvo, per ora... 🔫`,
-                        `unlucky bro ☠️`
-                    ]
-                } else if (scelta === 'sei salvo, per ora... 🔫') {
+                while (i < players.length && players.length > 1) {
+                    scelta = sixshooter[Math.floor(Math.random() * sixshooter.length)]
+                    message.channel.send(`${players[i]}, tocca a te...`)
+                    message.channel.send(`${scelta}`)
+                  
+                    if (scelta === 'unlucky bro ☠️') {
+                        players.splice(i, 1);
+                        message.channel.send("Ricarico la rivoltella... 🔥")
+                        sixshooter = [
+                            `sei salvo, per ora... 🔫`,
+                            `sei salvo, per ora... 🔫`,
+                            `sei salvo, per ora... 🔫`,
+                            `sei salvo, per ora... 🔫`,
+                            `sei salvo, per ora... 🔫`,
+                            `unlucky bro ☠️`
+                        ]
+                    } else if (scelta === 'sei salvo, per ora... 🔫') {
 
-                    sixshooter.shift();
+                        sixshooter.shift();
 
+                    }
+                    i++;
+                    if (i >= players.length) { i = 0 }
                 }
-                i++;
-                if (i >= players.length) { i = 0 }
+                message.channel.send(`${players}: sei sopravvissuto per poter morire un altro giorno `)
             }
-            message.channel.send(`${players}: hai vinto, per poter morire un altro giorno `)
         }, 5000);
+
         function rr(scelta) {
 
         }
