@@ -23,7 +23,7 @@ module.exports = {
             for (let k in citJSON) keys.push(k);
             if (args.length < 1 || ( !(args[0] in citJSON) && isNaN(args[0]) )) {
                 message.channel.send({
-                    files: ['./data/frasi_prof.txt']
+                    files: ['./media/frasi_prof.txt']
                 });
             }
             else if(!isNaN(args[0])){
