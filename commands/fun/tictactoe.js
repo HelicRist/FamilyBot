@@ -9,9 +9,6 @@ module.exports = {
     description: 'Gioca a TicTacToe',
     category :'fun',
     run: async (client, message, args) => {
-        console.log("start");
-
         game.handleMessage(message);
-
     }
 }
