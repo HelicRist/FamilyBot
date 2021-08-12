@@ -58,7 +58,7 @@ client.on('ready', () => {
     const botStatus = [
         `${config.prefix}help`,
         `with depression`,
-        `you creeply`
+        `with fake happiness`
     ]
     console.log((`Logged in as  ${client.user.tag}. Prefix: ${config.prefix}`).green);
 
