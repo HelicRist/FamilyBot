@@ -3,9 +3,10 @@ const { MessageEmbed } = require('discord.js');
 const fs = require("fs")
 
 module.exports = {
-    name: 'test',
-    aliases: ['test'],
-    description: 't',
+    name: 'win',
+    aliases: ['riscuoti','vincita'],
+    description: 'Riscuoti la scomessa',
+    category : 'bet',
     run: async (client, message, args) => {
         let embedBets = new MessageEmbed()
             .setTitle("nullo")
