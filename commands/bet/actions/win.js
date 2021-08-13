@@ -17,7 +17,7 @@ module.exports = {
         let winner, loser, punti, scommessa,classifica;
         message.react("👍")
         
-        fs.readFile('data/bet2.json', 'utf-8', (err, dataB) => {
+        fs.readFile('data/bet.json', 'utf-8', (err, dataB) => {
             if (err) { throw err; }
             bet = JSON.parse(dataB.toString());
             bets = bet.bets
@@ -33,7 +33,7 @@ module.exports = {
             punti = parseInt(bets[indice][1])
             client.on('messageReactionAdd', (reaction, user) => {
                 if (reaction.emoji.name === "👍" && user.id === loser) {
-                    fs.readFile('data/classifica2.json', 'utf-8', (err, dataC) => {
+                    fs.readFile('data/classifica.json', 'utf-8', (err, dataC) => {
                         if (err) { throw err; }
                         classifica = JSON.parse(dataC.toString());
 
@@ -41,13 +41,13 @@ module.exports = {
                         classifica[loser] -= punti
 
                         const dataC2 = JSON.stringify(classifica);
-                        fs.writeFile('data/classifica2.json', dataC2, (err) => {
+                        fs.writeFile('data/classifica.json', dataC2, (err) => {
                             if (err) { throw err; }
 
                         });//write c
                         bet.bets.splice(indice, 1)
                         const dataB2 = JSON.stringify(bet);
-                        fs.writeFile('data/bet2.json', dataB2, (err) => {
+                        fs.writeFile('data/bet.json', dataB2, (err) => {
                             if (err) { throw err; }
                         });//write b
 
