@@ -58,7 +58,6 @@ module.exports = {
                     .setDescription(`<@${winner}> hai vinto ${punti} :coin: contro <@${loser}>\n${scommessa}`)
                     .setFooter("Che la fortuna vi arrida")
                 message.channel.send(embedBets)
-            message.reply(bets[indice])
          }
             });
         });//leggi bet
