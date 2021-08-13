@@ -79,6 +79,9 @@ module.exports = {
                 case 'classifica':
                     client.betCommands.get(command).run(client, message, args);
                     break;
+                case 'win':
+                    client.betCommands.get(command).run(client, message, args);
+                    break;
 
                 default:
                     client.betCommands.get("list").run(client, message, args);
