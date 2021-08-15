@@ -6,7 +6,7 @@ module.exports = {
     name: 'add',
     description: 'Aggiunge un anime alla watchlist.',
     aliases: ['a'],
-    usage: `${prefix}add`,
+    usage: `${config.prefix}add`,
     category: 'anime',
 
     run: async (message, animeTitle) => {
