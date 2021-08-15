@@ -2,11 +2,11 @@ const discord = require('discord.js');
 const config = require('./config.json');
 require('colors');
 require('dotenv').config();
-
+const cron = require('cron');
 const client = new discord.Client();
 client.commands = new discord.Collection();
 const fs = require('fs');
-
+const akaneko = require('akaneko');
 const commandFolders = fs.readdirSync('./commands');
 
 for (const folder of commandFolders) {

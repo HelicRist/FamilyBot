@@ -1,10 +1,12 @@
 const { Client, MessageEmbed, MessageManager } = require('discord.js');
 let started = false;
+const config = require('../../config.json');
+
 module.exports = {
     name: "roulette",
     description: "russian roulette, enjoy",
     aliases: ["roulette"],
-    usage: `${prefix}roulette`,
+    usage: `${config.prefix}roulette`,
     category: "fun",
     run(client, message, args) {
         let players = []

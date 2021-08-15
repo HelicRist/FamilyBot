@@ -30,13 +30,13 @@ module.exports = {
                             genre = genre.replace('-', '_');
 
                             anime[genre].forEach(anime => {
-                                if (anime == response.data.data[0].attributes.abbreviatedTitles[0]) {
+                                if (anime == response.data.data[0].attributes.canonicalTitle) {
                                     exists = true;
                                 }
                             })
 
                             if (!exists) {
-                                anime[genre].push(response.data.data[0].attributes.abbreviatedTitles[0])
+                                anime[genre].push(response.data.data[0].attributes.canonicalTitle)
                             }
                         });
                         fs.writeFile('./data/watchlist.json', JSON.stringify(anime), (err) => {
@@ -45,7 +45,7 @@ module.exports = {
                         if (!exists) {
                             message.channel.send({
                                 embed: {
-                                    description: `:green_circle: ${response.data.data[0].attributes.abbreviatedTitles[0]} è stato aggiunto alla watchlist!`,
+                                    description: `:green_circle: **${response.data.data[0].attributes.canonicalTitle}** è stato aggiunto alla watchlist!`,
                                     color: 0x00FF00
                                 }
                             })
@@ -53,7 +53,7 @@ module.exports = {
                         else {
                             message.channel.send({
                                 embed: {
-                                    description: `:blue_circle: ${response.data.data[0].attributes.titles.en_jp} è già presente nella watchlist!`,
+                                    description: `:blue_circle: **${response.data.data[0].attributes.canonicalTitle}** è già presente nella watchlist!`,
                                     color: '#18f0af'
                                 }
                             })
@@ -64,7 +64,7 @@ module.exports = {
                 message.channel.send({
                     embed: {
                         color: '#ec4c4c',
-                        description: `:red_circle: Errore nell'inserimento di ${animeTitle}`
+                        description: `:red_circle: Errore nell'inserimento di **${animeTitle}**`
                     }
                 });
                 console.log((`Error querying ${animeTitle} in Kitsu APIs`).red);

@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/HelicRist/FamilyBot#readme",
   "dependencies": {
+    "akaneko": "^5.2.1",
     "axios": "^0.21.1",
     "colors": "^1.4.0",
+    "cron": "^1.8.2",
+    "discord-tictactoe": "^2.1.1",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "install": "^0.13.0",

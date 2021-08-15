@@ -73,7 +73,7 @@ module.exports = {
                 message.channel.send({
                     embed: {
                         color: '#ec4c4c',
-                        description: `:red_circle: Nessun anime trovato con il nome di ${animeTitle}`
+                        description: `:red_circle: Nessun anime trovato con il nome di **${animeTitle}**`
                     }
                 });
                 console.log((`Error querying ${animeTitle} in Kitsu APIs`).red);

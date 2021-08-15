@@ -31,7 +31,7 @@ module.exports = {
         let exists = false;
         await axios.get(`https://kitsu.io/api/edge/anime?filter[text]=${animeTitle}`, options)
             .then(async response => {
-                let animeName = response.data.data[0].attributes.abbreviatedTitles[0];
+                let animeName = response.data.data[0].attributes.canonicalTitle;
 
                 list.forEach(row => {
                     row[1].forEach(anime => {
@@ -46,14 +46,14 @@ module.exports = {
                     message.channel.send({
                         embed: {
                             color: '#ec4c4c',
-                            description: `:red_circle: ${animeName} non è nella lista!`
+                            description: `:red_circle: **${animeName}** non è nella lista!`
                         }
                     })
                 }
                 else {
                     message.channel.send({
                         embed: {
-                            description: `:green_circle: ${animeName} è stato rimosso alla watchlist!`,
+                            description: `:green_circle: **${animeName}** è stato rimosso alla watchlist!`,
                             color: 0x00FF00
                         }
                     })
