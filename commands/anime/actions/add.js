@@ -39,7 +39,7 @@ module.exports = {
                                 anime[genre].push(response.data.data[0].attributes.abbreviatedTitles[0])
                             }
                         });
-                        fs.writeFile('watchlist.json', JSON.stringify(anime), (err) => {
+                        fs.writeFile('./data/watchlist.json', JSON.stringify(anime), (err) => {
                             return err;
                         })
                         if (!exists) {
