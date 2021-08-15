@@ -1,11 +1,12 @@
 const axios = require('axios');
 const fs = require('fs')
+const config = require('../../../config.json');
 
 module.exports = {
     name: 'remove',
     description: 'Rimuove un anime dalla watchlist.',
     aliases: ['r', 'rm', 'rem'],
-    usage: `${prefix}remove <anime_name>`,
+    usage: `${config.prefix}remove <anime_name>`,
     category: 'anime',
 
     run: async (message, animeTitle) => {

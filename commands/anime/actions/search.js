@@ -1,10 +1,11 @@
 const axios = require('axios');
+const config = require('../../../config.json');
 
 module.exports = {
     name: 'search',
     description: 'Cerca un anime nel web.',
     aliases: ['s'],
-    usage: `${prefix}search <anime_name>`,
+    usage: `${config.prefix}search <anime_name>`,
     category: 'anime',
 
     run: async (message, animeTitle) => {
