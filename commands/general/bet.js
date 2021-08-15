@@ -11,7 +11,7 @@ module.exports = {
     name: 'bet',
     description: 'Punteggi scommesse',
     aliases: ['b', 'scommesse', 'scommetto', 'scommessa'],
-    usage: `${config.prefix}bet <user> <punti> <scommessa>`,
+    usage: `${config.prefix}bet <user> <punti> <scommessa>\n${config.prefix}bet classifica\n${config.prefix}bet win <posizione_bet>`,
     category: 'utility',
 
     run: async (client, message, args) => {
