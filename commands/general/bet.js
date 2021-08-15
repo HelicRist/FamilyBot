@@ -14,6 +14,7 @@ module.exports = {
 
     run: async (client, message, args) => {
         const command = args[0];
+        let scommessa;
         let embed = new MessageEmbed()
             .setTitle("Bet in corso")
 
@@ -43,7 +44,7 @@ module.exports = {
                     });
                     embed
                         .setTitle('Scommessa Aggiunta')
-                        .setDescription(`\n\ ${punti} :coin:| ${message.author} vs ${opponent} \n\n${scommessa}`)
+                        .setDescription(`\n\  ${message.author} vs ${opponent} ${punti} :coin: \n\n${scommessa}`)
                         .setColor("#001eff")
                         .setThumbnail("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyHcDvZNdOBrsauNQJ4P5OMOfg65MnTG-z7d6Yu7b-UUWhC67mKuB8A-qb1TfJJ3bKUl0&usqp=CAU")
                     message.channel.send(embed);
@@ -58,7 +59,6 @@ module.exports = {
                 const command = require(`./actions/${betCommandFile}`);
                 client.betCommands.set(command.name, command);
             }
-            //  betCommandFiles.map(command => console.log(command));
 
             for (const file of betCommandFiles) {
                 const betCommand = require(`./actions/${file}`);
@@ -66,7 +66,6 @@ module.exports = {
             }
             switch (command) {
                 case 'classifica':
-                 //   let embed = new MessageEmbed();
                     let players = [];
                     let classifica = JSON.parse(fs.readFileSync("data/classifica.json"))
                     let keys = [];
@@ -82,86 +81,84 @@ module.exports = {
                         .setColor("#a58d00")
                     break;
                 case 'win':
-                    let  winner, loser, scommessa;
-                   
+                    let winner, loser;
+
                     if (isNaN(args[1]) || args[1] < 1) return message.reply('Non c\'è quel numero  pepega');
                     let indice = args[1] - 1
                     bet = JSON.parse(fs.readFileSync("data/bet.json"))
                     bets = bet.bets
                     if (indice > bets.length) return message.reply('non c\'è quel numero  (troppo grande)');
-                    if (bets[indice][2] != message.author.id && bets[indice][3] != message.author.id ) return message.reply('non hai partecipato a quella bet');
+                    if (bets[indice][2] != message.author.id && bets[indice][3] != message.author.id) return message.reply('non hai partecipato a quella bet');
                     message.react("👍")
-            
+
                     winner = message.author.id;
                     if (winner == bets[indice][2]) { loser = bets[indice][3] } else if (winner == bets[indice][3]) { loser = bets[indice][2] }
                     punti = parseInt(bets[indice][1])
                     scommessa = bets[indice][0]
                     setTimeout(() => {
-                        
+
                         client.on('messageReactionAdd', (reaction, user) => {
                             if (reaction.emoji.name === "👍" && user.id === loser) {
-                                
+
                                 fs.readFile('data/classifica.json', 'utf-8', (err, data) => {
-                                    if (err) { throw err;}
+                                    if (err) { throw err; }
                                     let classifica = JSON.parse(data)
                                     classifica[winner] += punti
                                     classifica[loser] -= punti
-                                    
+
                                     fs.writeFile('data/classifica.json', JSON.stringify(classifica), (err) => {
-                                        if (err) {throw err;}
+                                        if (err) { throw err; }
                                     });//write classificajson
-                                    
+
                                 });
                                 fs.readFile('data/bet.json', 'utf-8', (err, data) => {
                                     let bet = JSON.parse(data)
-            
-                                    bet.bets.splice(indice,1)
+
+                                    bet.bets.splice(indice, 1)
                                     const dataB = JSON.stringify(bet);
                                     fs.writeFile('data/bet.json', dataB, (err) => {
-                                        if (err) {throw err;}
+                                        if (err) { throw err; }
                                     });//write bet
                                 });
-                                
+
                                 embed
-                                .setColor("#008f00")
-                                .setTitle("Bet Riscossa")
-                                .setThumbnail("https://cdn3.iconfinder.com/data/icons/casino-and-gambling-1/50/Casino_And_Gambling_Casino_chips-44-512.png")
-                                .setDescription(`<@${winner}> hai vinto ${punti} :coin: contro <@${loser}>\n${scommessa}`)
-                                .setFooter("Che la fortuna vi arrida")
+                                    .setColor("#008f00")
+                                    .setTitle("Bet Riscossa")
+                                    .setThumbnail("https://cdn3.iconfinder.com/data/icons/casino-and-gambling-1/50/Casino_And_Gambling_Casino_chips-44-512.png")
+                                    .setDescription(`<@${winner}> hai vinto ${punti} :coin: contro <@${loser}>\n${scommessa}`)
+                                    .setFooter("Che la fortuna vi arrida")
                                 message.channel.send(embedBets);
                             }
                         });//react
-                        
-                    }, 400);                    break;
+
+                    }, 400);
+                    break;
 
                 default:
-
-                   // let embed = new MessageEmbed()
-                   //     .setTitle("Bet in corso")
-
                     let bets, gambl1, gambl2, punti, motivo, betSingola
                     let betlist = [];
                     let bet = JSON.parse(fs.readFileSync("data/bet.json"))
                     bets = bet.bets
-
-                    for (let i = 0; i < bets.length; i++) {
-                        motivo = bets[i][0] + "  "
-                        punti = bets[i][1] + "  "
-                        gambl1 = `<@${bets[i][2]}>`
-                        gambl2 = `<@${bets[i][3]}>`
-                        betlist.push(`**${i + 1}**     ══════════\n${motivo} \n ${punti}:coin: da ${gambl1} vs ${gambl2}\n`)
-                        betSingola = betlist.join(" ")
+                    if (bets.length < 1) {
+                        betSingola = "Ancora nessuna bet \n* cespuglio secco che rotola *"
+                    } else {
+                        for (let i = 0; i < bets.length; i++) {
+                            motivo = bets[i][0] + "  "
+                            punti = bets[i][1] + "  "
+                            gambl1 = `<@${bets[i][2]}>`
+                            gambl2 = `<@${bets[i][3]}>`
+                            betlist.push(`**${i + 1}**     ══════════\n${motivo} \n ${punti}:coin: da ${gambl1} vs ${gambl2}\n`)
+                            betSingola = betlist.join(" ")
+                        }
                     }
-
                     embed
                         .setColor("#d20202")
                         .setTitle("Bet In Corso")
                         .setThumbnail("https://cdn3.iconfinder.com/data/icons/sport-vol-1-3/512/7-512.png")
                         .setDescription(betSingola)
-                        .setFooter("═════════════")                    //o un comando help
+                        .setFooter("═════════════")
                     break;
             }
-            //embed
             message.channel.send(embed);
         }
 
