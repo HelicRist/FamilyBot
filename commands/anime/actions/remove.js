@@ -58,7 +58,7 @@ module.exports = {
                         }
                     })
 
-                    fs.writeFile('watchlist.json', JSON.stringify(animeJSON), (err) => {
+                    fs.writeFile('./data/watchlist.json', JSON.stringify(animeJSON), (err) => {
                         return err;
                     })
                 }
