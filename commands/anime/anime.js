@@ -1,6 +1,5 @@
 const axios = require('axios');
 require('colors');
-const watchlist = require('../../watchlist.json');
 const fs = require('fs');
 const Discord = require('discord.js')
 const { MessageEmbed } = require('discord.js');
