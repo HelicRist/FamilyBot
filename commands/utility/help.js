@@ -8,7 +8,7 @@ module.exports = {
     description: `Comando help.`,
     aliases: ['command', 'commands', 'aiuto'],
     usage: `${config.prefix}help <nome_comando>`,
-    category: 'general',
+    category: 'utility',
 
     run: async (client, message, args) => {
         if (!args[0]) {
