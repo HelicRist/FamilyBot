@@ -7,7 +7,7 @@ module.exports = {
     name: 'rule34',
     description: `Cerca su Rule34.`,
     aliases: ['34', 'r34'],
-    usage: ` ${config.prefix}r34 <parametro>`,
+    usage: ` ${config.prefix}r34 <personaggio>`,
     category: 'fun',
 
     run: async (client, message, args) => {
