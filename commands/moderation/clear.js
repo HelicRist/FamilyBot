@@ -8,7 +8,7 @@ module.exports = {
     category: "moderation",
     
     run: async (client, message, args) => {
-    const amount = args.join(' '); 
+    const amount = args[0]; 
     let id = message.member.id;
     if ( id == "342343548718284801" ) {
         if (!amount) return message.reply('Specifica quanti messaggi eliminare'); 
