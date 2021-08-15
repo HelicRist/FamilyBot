@@ -43,7 +43,7 @@ module.exports = {
 
                 // you can of course customise this embed however you want
                 return new MessageEmbed({
-                    title: `Generi dal ${index + 1} al ${index + current.length}, su ${animes.length} totali`,
+                    title: `(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ANIMELIST ${index} - ${index + current.length}`,
                     fields: current.map(g => ({
                         name: g[0],
                         value: g[1].length > 0 ? g[1].join(', ') : '-',
