@@ -1,56 +1,71 @@
-const watchlistJSON = require('../../../watchlist.json');
 const fs = require('fs');
 const axios = require('axios');
-
 module.exports = {
     name: 'add',
     description: 'Add an anime to the list.',
-    usage: 'add <anime name>',
+    usage: 'add <anime_name>',
 
-    run: async(message, client, animeTitle) => {
-        let watchlist = JSON.parse(fs.readFileSync('watchlist.json'));
-
+    run: async (message, animeTitle) => {
         const options = {
             Headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             }
         }
+
+        let anime = JSON.parse(fs.readFileSync('./data/watchlist.json'));
+        let exists = false;
+
         await axios.get(`https://kitsu.io/api/edge/anime?filter[text]=${animeTitle}`, options)
             .then(async response => {
                 await axios.get(`https://kitsu.io/api/edge/anime/${response.data.data[0].id}/genres`, options)
                     .then(genres => {
-                        let genresList = [];
-                        genres.data.data.forEach(genre => {
-                            genresList.push(genre.attributes.name);
-                        });
+                        genres.data.data.forEach(genreOBJ => {
+                            let genre = genreOBJ.attributes.name;
+                            genre = genre.replace(/\s/g, 'Z');
+                            genre = genre.replace('-', '_');
 
-                        watchlist.types.forEach(type => {
-                            genresList.forEach(genre => {
-                                console.log(`${type.genre} && ${genre}`);
-                                console.log(type.genre === genre);
-                                if (type.genre == genre) {
-                                    watchlist.types.push({
-                                        genre: genre,
-                                        anime: [animeTitle],
-                                    });
-                                    console.log('Doesnt exist');
-                                    fs.writeFile('watchlist.json', JSON.stringify(watchlist), (err) => {
-                                        if (err) {
-                                            throw err;
-                                        }
-                                        console.log("JSON data is saved.");
-                                    });
-                                } else {
-                                    console.log('Exsists');
+                            anime[genre].forEach(anime => {
+                                if (anime == response.data.data[0].attributes.abbreviatedTitles[0]) {
+                                    exists = true;
                                 }
-                            });
-                        });
-                        console.log(watchlist);
+                            })
 
+                            if (!exists) {
+                                anime[genre].push(response.data.data[0].attributes.abbreviatedTitles[0])
+                            }
+                        });
+                        fs.writeFile('watchlist.json', JSON.stringify(anime), (err) => {
+                            return err;
+                        })
+                        if (!exists) {
+                            message.channel.send({
+                                embed: {
+                                    description: `:green_circle: ${response.data.data[0].attributes.abbreviatedTitles[0]} è stato aggiunto alla watchlist!`,
+                                    color: 0x00FF00
+                                }
+                            })
+                        }
+                        else {
+                            message.channel.send({
+                                embed: {
+                                    description: `:blue_circle: ${response.data.data[0].attributes.titles.en_jp} è già presente nella watchlist!`,
+                                    color: '#18f0af'
+                                }
+                            })
+                        }
                     });
             })
+            .catch(error => {
+                message.channel.send({
+                    embed: {
+                        color: '#ec4c4c',
+                        description: `:red_circle: Errore nell'inserimento di ${animeTitle}`
+                    }
+                });
+                console.log((`Error querying ${animeTitle} in Kitsu APIs`).red);
+            });
 
-        console.log(watchlist);
+
     }
 }
