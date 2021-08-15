@@ -5,9 +5,11 @@ const config = require('../../config.json');
 //TODO: aggiungere cit numero, 
 module.exports = {
     name: 'cit',
-    aliases: ['citazioni'],
     description: 'Trova la tuas frase preferita tra più di mille disponibili',
+    aliases: ['citazioni'],
+    usage: `${config.prefix}cit <nome_prof>`,
     category :'fun',
+
     run: async (client, message, args) => {
         let embedQuote = new MessageEmbed();
         let citJSON;

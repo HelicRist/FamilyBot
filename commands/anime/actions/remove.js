@@ -3,8 +3,10 @@ const fs = require('fs')
 
 module.exports = {
     name: 'remove',
-    description: 'remove an anime from the list.',
-    usage: 'remove <anime_name>',
+    description: 'Rimuove un anime dalla watchlist.',
+    aliases: ['r', 'rm', 'rem'],
+    usage: `${prefix}remove <anime_name>`,
+    category: 'anime',
 
     run: async (message, animeTitle) => {
         let animeJSON = JSON.parse(fs.readFileSync('./data/watchlist.json'));

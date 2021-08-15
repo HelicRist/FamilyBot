@@ -1,9 +1,13 @@
 const fs = require('fs');
 const axios = require('axios');
+const config = require('../../../config.json');
+
 module.exports = {
     name: 'add',
-    description: 'Add an anime to the list.',
-    usage: 'add <anime_name>',
+    description: 'Aggiunge un anime alla watchlist.',
+    aliases: ['a'],
+    usage: `${prefix}add`,
+    category: 'anime',
 
     run: async (message, animeTitle) => {
         const options = {

@@ -3,11 +3,14 @@ require('colors');
 const fs = require('fs');
 const Discord = require('discord.js')
 const { MessageEmbed } = require('discord.js');
+const config = require('../../config.json');
 
 module.exports = {
     name: 'anime',
-    description: 'mostra una lista di anime da guardare suddivisa in categorie',
-    aliases: ['a'],
+    description: 'Mostra tutta la watchlist',
+    aliases: ['a', 'animes'],
+    usage: `${config.prefix}a`,
+    category: 'anime',
 
     run: async (client, message, args) => {
         client.animeCommands = new Discord.Collection();

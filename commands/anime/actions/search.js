@@ -2,8 +2,10 @@ const axios = require('axios');
 
 module.exports = {
     name: 'search',
-    description: 'search an anime in the list.',
-    usage: 'search <anime_name>',
+    description: 'Cerca un anime nel web.',
+    aliases: ['s'],
+    usage: `${prefix}search <anime_name>`,
+    category: 'anime',
 
     run: async (message, animeTitle) => {
         const options = {
