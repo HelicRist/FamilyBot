@@ -5,8 +5,9 @@ const config = require('../../config.json');
 
 module.exports = {
     name: 'help',
-    description: `Comando help. ${config.prefix}help (nomeComando)`,
+    description: `Comando help.`,
     aliases: ['command', 'commands', 'aiuto'],
+    usage: `${config.prefix}help <nome_comando>`,
     category: 'general',
 
     run: async (client, message, args) => {

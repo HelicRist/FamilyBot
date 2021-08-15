@@ -2,8 +2,9 @@ const config = require('../../config.json');
 
 module.exports = {
     name: "admin",
-    aliases: ["admin"],
-    description: `Mod teporaneo, non abusarne. ${config.prefix}admin`,
+    description: `Mod teporaneo, non abusarne.`,
+    aliases: ["gimmeadmin"],
+    usage: `${config.prefix}admin`,
     category: "moderation",
     
     run: async (client, message, args) => {

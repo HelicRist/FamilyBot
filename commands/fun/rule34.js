@@ -5,8 +5,9 @@ const config = require('../../config.json');
 
 module.exports = {
     name: 'rule34',
+    description: `Cerca su Rule34.`,
     aliases: ['34', 'r34'],
-    description: `Cerca su Rule34. ${config.prefix}r34 parametro`,
+    usage: ` ${config.prefix}r34 <parametro>`,
     category: 'fun',
 
     run: async (client, message, args) => {

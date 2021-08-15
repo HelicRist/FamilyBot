@@ -1,8 +1,10 @@
+const config = require('../../config.json');
 
 module.exports = {
     name: "clear",
-    aliases: ["pulisci"],
     description: `cancella messaggi`,
+    aliases: ["pulisci"],
+    usage: `${config.prefix}clear <num_mex>`,
     category: "moderation",
     
     run: async (client, message, args) => {

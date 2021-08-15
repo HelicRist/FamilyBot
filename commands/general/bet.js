@@ -2,14 +2,16 @@
 const { MessageEmbed } = require('discord.js');
 const fs = require("fs")
 const Discord = require('discord.js')
+const config = require('../../config.json')
 
 // TODO: fil partecipanti e punti
 // file scommesse in corso 
 
 module.exports = {
     name: 'bet',
-    aliases: ['b', 'scommesse', 'scommetto', 'scommessa'],
     description: 'Punteggi scommesse',
+    aliases: ['b', 'scommesse', 'scommetto', 'scommessa'],
+    usage: `${config.prefix}bet <user> <punti> <scommessa>`,
     category: 'utility',
 
     run: async (client, message, args) => {

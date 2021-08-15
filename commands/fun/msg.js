@@ -4,7 +4,7 @@ module.exports = {
     name: 'msg',
     description: `Invia un messaggio ad un canale.`,
     aliases: ['messaggio', 'message'],
-    usage: ` ${config.prefix}msg <essaggio>`,
+    usage: ` ${config.prefix}msg <messaggio>`,
     category: 'fun',
 
     run: async(client, message, args) => {

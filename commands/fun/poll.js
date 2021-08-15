@@ -4,8 +4,9 @@ const config = require('../../config.json');
 
 module.exports = {
     name: "poll",
+    description: `Crea una poll.`,
     aliases: ["domanda"],
-    description: `Crea una poll. ${config.prefix}poll <domanda>-<opzione1>-<opzione2>`,
+    usage: `${config.prefix}poll <domanda>-<opzione1>-<opzione2>`,
     category: "fun",
     run: async (client, message, args) => {
 
