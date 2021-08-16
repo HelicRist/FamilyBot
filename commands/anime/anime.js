@@ -37,7 +37,7 @@ module.exports = {
             let animes = []
             Object.entries(animeJSON).map(anime => {
                 if(anime[1].length > 0){
-                    anime[0] = anime[0].replace('Z', ' ').replace('_','-')
+                    anime[0] = anime[0].replaceAll('Z', ' ').replaceAll('_','-')
                     animes.push(anime);
                 }
             })

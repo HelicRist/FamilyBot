@@ -22,7 +22,7 @@ module.exports = {
             "jcQ8NLF",
             "00hdkLm",        
         ]
-        let files = fs.readdirSync('media/billie');
+   
         message.channel.send(" Cercando...").then(msg => {
            console.log( urls[Math.floor(Math.random() * urls.length)]);
             message.channel.send(" 💜 Billie Mood :heart_exclamation: ", {
