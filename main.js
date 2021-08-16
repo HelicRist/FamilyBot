@@ -68,7 +68,7 @@ client.on('ready', () => {
 
     }, 5000)
 //
-         let scheduledMessage = new cron.CronJob('00 30 18 * * *', () => {
+         let scheduledMessage = new cron.CronJob('00 20 20 * * *', () => {
 
          const hembed = new MessageEmbed();
            if(r50()){
