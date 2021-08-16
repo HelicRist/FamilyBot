@@ -68,9 +68,8 @@ client.on('ready', () => {
 
     }, 5000)
 //
-    console.log("nuovo")
-         let scheduledMessage = new cron.CronJob('00 39 22 * * *', () => {
-        console.log("DAILY PIC")
+           let scheduledMessage = new cron.CronJob('20 44 22 * * *', () => {
+
          const hembed = new MessageEmbed();
            if(r50()){
             akaneko.neko().then((imageURL) => {
@@ -79,7 +78,7 @@ client.on('ready', () => {
                     .setTitle(" :lollipop:  DAILY PIC  :purple_heart: ")
                     .setColor("#FFDEDE")
                     .setImage(imageURL)
-                client.channels.cache.get("821068653348913223").send({embed:hembed})
+                client.channels.cache.get("821068653348913223").send(hembed)
             });
 
         }else{
@@ -90,7 +89,7 @@ client.on('ready', () => {
                     .setTitle(" :lollipop:  DAILY PIC  :purple_heart: ")
                     .setColor("#FFDEDE")
                     .setImage(imageURL)
-                client.channels.cache.get("844291548140011540").send({embed:hembed})
+                client.channels.cache.get("844291548140011540").send(hembed)
                 });
         }
 
