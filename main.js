@@ -68,7 +68,8 @@ client.on('ready', () => {
 
     }, 5000)
 //
-         let scheduledMessage = new cron.CronJob('00 25 22 * * *', () => {
+    console.log("nuovo")
+         let scheduledMessage = new cron.CronJob('00 39 22 * * *', () => {
         console.log("DAILY PIC")
          const hembed = new MessageEmbed();
            if(r50()){
