@@ -5,7 +5,7 @@ const config = require('../../config.json');
 module.exports = {
     name: 'add',
     description: 'Aggiunge un anime alla watchlist.',
-    aliases: ['a'],
+    aliases: ['add'],
     usage: `${config.prefix}add <anime_name>`,
     category: 'anime',
 
@@ -17,9 +17,7 @@ module.exports = {
             }
         }
 
-        fs.readFile('./data/watchlist.json',(data)=>{
-            let anime = JSON.parse(data);
-        });
+        let anime = JSON.parse(fs.readFileSync('./data/watchlist.json'));
         let exists = false;
 
         await axios.get(`https://kitsu.io/api/edge/anime?filter[text]=${animeTitle}`, options)
@@ -62,7 +60,7 @@ module.exports = {
                         }
                     });
             })
-            .catch(error => {
+            /*.catch(error => {
                 message.channel.send({
                     embed: {
                         color: '#ec4c4c',
@@ -70,7 +68,7 @@ module.exports = {
                     }
                 });
                 console.log((`Error querying ${animeTitle} in Kitsu APIs`).red);
-            });
+            });*/
 
 
     }
