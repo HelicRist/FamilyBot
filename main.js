@@ -90,6 +90,7 @@ client.on('ready', () => {
                     .setTitle(" :lollipop:  DAILY PIC  :purple_heart: ")
                     .setColor("#FFDEDE")
                     .setImage(imageURL)
+                client.channels.cache.get("844291548140011540").send("↓↓ @here ↓↓")
                 client.channels.cache.get("844291548140011540").send(hembed)
                 });
         }
