@@ -60,7 +60,7 @@ module.exports = {
                         }
                     });
             })
-            /*.catch(error => {
+            .catch(error => {
                 message.channel.send({
                     embed: {
                         color: '#ec4c4c',
@@ -68,7 +68,7 @@ module.exports = {
                     }
                 });
                 console.log((`Error querying ${animeTitle} in Kitsu APIs`).red);
-            });*/
+            });
 
 
     }
