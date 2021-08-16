@@ -8,13 +8,13 @@ const config = require('../../config.json');
 module.exports = {
     name: 'anime',
     description: 'Mostra tutta la watchlist',
-    aliases: ['a', 'animes'],
+    aliases: ['animes'],
     usage: `${config.prefix}a`,
     category: 'anime',
 
     run: async (client, message, args) => {
         client.animeCommands = new Discord.Collection();
-        const animeCommandFiles = fs.readdirSync('./commands/anime/actions').filter(file => file.endsWith('.js'));
+        const animeCommandFiles = fs.readdirSync('./commands/anime/').filter(file => file.endsWith('.js'));
         for (const animeCommandFile of animeCommandFiles) {
             const command = require(`./actions/${animeCommandFile}`);
             client.animeCommands.set(command.name, command);

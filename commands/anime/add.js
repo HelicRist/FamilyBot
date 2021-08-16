@@ -1,12 +1,12 @@
 const fs = require('fs');
 const axios = require('axios');
-const config = require('../../../config.json');
+const config = require('../../config.json');
 
 module.exports = {
     name: 'add',
     description: 'Aggiunge un anime alla watchlist.',
     aliases: ['a'],
-    usage: `${config.prefix}add`,
+    usage: `${config.prefix}add <anime_name>`,
     category: 'anime',
 
     run: async (message, animeTitle) => {
@@ -17,7 +17,9 @@ module.exports = {
             }
         }
 
-        let anime = JSON.parse(fs.readFileSync('./data/watchlist.json'));
+        fs.readFile('./data/watchlist.json',(data)=>{
+            let anime = JSON.parse(data);
+        });
         let exists = false;
 
         await axios.get(`https://kitsu.io/api/edge/anime?filter[text]=${animeTitle}`, options)

@@ -1,6 +1,6 @@
 const axios = require('axios');
 const fs = require('fs')
-const config = require('../../../config.json');
+const config = require('../../config.json');
 
 module.exports = {
     name: 'remove',

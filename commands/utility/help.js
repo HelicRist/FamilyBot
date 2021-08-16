@@ -54,7 +54,7 @@ module.exports = {
                 folderCommands.push(
                     {
                         name: command.name,
-                        value: command.description,
+                        value: `${command.description}\n${command.usage}`,
                     }
                 );
             }
