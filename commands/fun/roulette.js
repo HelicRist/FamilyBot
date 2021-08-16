@@ -1,5 +1,4 @@
 const { Client, MessageEmbed, MessageManager } = require('discord.js');
-let started = false;
 const config = require('../../config.json');
 
 module.exports = {
@@ -22,58 +21,71 @@ module.exports = {
             .setTitle(' RUSSIAN ROULETTE ')
             .setColor(0x8334eb)
             .setDescription('Dovresti provare la versione hard! Con 6 proiettili... purtroppo non ne abbiamo feedback\n\n**Reacta per joinare**');
-        message.channel.send(embed)
-            .then(embedMessage => {
-                embedMessage.react("🥐")
+        if (args[0] != "start") {
+            message.channel.send(embed)
+                .then(embedMessage => {
+                    embedMessage.react("🥐")
+                });
+            client.on('messageReactionAdd', (reaction, user) => {
+                if (reaction.emoji.name === "🥐" && !user.bot) {
+                    players.push(user)
+                    players.forEach(p => {
+                        if (p.id !== user.id) {
+                        }
+                    });
+                }
             });
-        client.on('messageReactionAdd', (reaction, user) => {
-            if (reaction.emoji.name === "🥐" && !user.bot) {
-                players.push(user)
-            }
-        });
+        }
 
         setTimeout(() => {
-            started = true;
-            // console.log(started);
-            if (started) {
-                console.log(started);
-                if (players.length < 1) return message.channel.send(`Nessuno vuole giocare? ):`);
-                if (players.length < 2) return message.channel.send(`Questo è suicidio... mi piace ma non è una roulette russa da soli`);
-                let i = 0
-                let scelta;
-                //message.channel.send(`FUCK THE SUSPANCE`)
-                // setTimeout(() => {
+            rrGame();
 
-                while (i < players.length && players.length > 1) {
-                    scelta = sixshooter[Math.floor(Math.random() * sixshooter.length)]
-                    message.channel.send(`${players[i]}, tocca a te...`)
-                    message.channel.send(`${scelta}`)
-                  
-                    if (scelta === 'unlucky bro ☠️') {
-                        players.splice(i, 1);
-                        message.channel.send("Ricarico la rivoltella... 🔥")
-                        sixshooter = [
-                            `sei salvo, per ora... 🔫`,
-                            `sei salvo, per ora... 🔫`,
-                            `sei salvo, per ora... 🔫`,
-                            `sei salvo, per ora... 🔫`,
-                            `sei salvo, per ora... 🔫`,
-                            `unlucky bro ☠️`
-                        ]
-                    } else if (scelta === 'sei salvo, per ora... 🔫') {
-
-                        sixshooter.shift();
-
-                    }
-                    i++;
-                    if (i >= players.length) { i = 0 }
-                }
-                message.channel.send(`${players}: sei sopravvissuto per poter morire un altro giorno `)
-            }
         }, 5000);
 
-        function rr(scelta) {
+        function waitforme(ms) {
+            return new Promise(resolve => { setTimeout(resolve, ms); });
+        }
+
+        async function rrGame() {
+
+            if (players.length < 1) return message.channel.send(`Nessuno vuole giocare? ):`);
+            if (players.length < 2) return message.channel.send(`Questo è suicidio... mi piace ma non è una roulette russa da soli`);
+            let i = 0
+            let scelta;
+            while (i < players.length && players.length > 1) {
+                //timeout([0, 5], 1, function(i){
+                scelta = sixshooter[Math.floor(Math.random() * sixshooter.length)]
+                message.channel.send(`${players[i]}, tocca a te...`).then(message => {
+                    setTimeout(() => {
+                        message.edit(`${players[i]}, ${scelta}`)
+                        
+                    }, 1000);
+                   // message.channel.send()
+                });
+                await waitforme(2000); // loop will be halted here until promise is resolved
+
+                if (scelta === 'unlucky bro ☠️') {
+                    players.splice(i, 1);
+                    message.channel.send("Ricarico la rivoltella... 🔥")
+                    sixshooter = [
+                        `sei salvo, per ora... 🔫`,
+                        `sei salvo, per ora... 🔫`,
+                        `sei salvo, per ora... 🔫`,
+                        `sei salvo, per ora... 🔫`,
+                        `sei salvo, per ora... 🔫`,
+                        `unlucky bro ☠️`
+                    ]
+                } else if (scelta === 'sei salvo, per ora... 🔫') {
+                    sixshooter.shift();
+                }
+                i++;
+                if (i >= players.length) { i = 0 }
+                // });
+            }
+            message.channel.send(`${players}: sei sopravvissuto per poter morire un altro giorno `)
 
         }
+
+
     }
 }
