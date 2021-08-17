@@ -22,17 +22,13 @@ module.exports = {
             "jcQ8NLF",
             "00hdkLm",        
         ]
-        let files = fs.readdirSync('media/billie');
-        message.channel.send(" Cercando...").then(msg => {
-           console.log( urls[Math.floor(Math.random() * urls.length)]);
-            message.channel.send(" 💜 Billie Mood :heart_exclamation: ", {
-                files: [
-                    `https://i.imgur.com/${urls[Math.floor(Math.random() * urls.length)]}.mp4`,
-                ]
-            }).then(mex => {
-                msg.delete()
+         message.channel.send(" Cercando...").then(msg => {
+
+            message.channel.send(`https://i.imgur.com/${urls[Math.floor(Math.random() * urls.length)]}.mp4`) 
+            .then(mex => {
+                msg.edit(" 💜 Billie Mood :heart_exclamation: ")
             })
-        })
+        });
 
     }
 }
