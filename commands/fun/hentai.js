@@ -1,12 +1,13 @@
 
 const akaneko = require('akaneko');
 const { MessageEmbed } = require('discord.js');
-
+const config = require("../../config.json")
 
 module.exports = {
     name: 'hentai',
     aliases: ['hanime', 'lewd', 'hanime', 'pic'],
     description: 'Get a nasty pic. Insomma, per farti segare',
+    usage: `${config.prefix}hentai`,
     category: 'fun',
     run: async (client, message, args) => {
 
