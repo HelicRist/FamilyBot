@@ -1,6 +1,7 @@
 const discord = require('discord.js');
 const config = require('./config.json');
 require('colors');
+const {  MessageEmbed } = require('discord.js');
 require('dotenv').config();
 const cron = require('cron');
 const client = new discord.Client();
@@ -68,7 +69,7 @@ client.on('ready', () => {
 
     }, 5000)
 //
-         let scheduledMessage = new cron.CronJob('00 30 18 * * *', () => {
+           let scheduledMessage = new cron.CronJob('20 44 22 * * *', () => {
 
          const hembed = new MessageEmbed();
            if(r50()){
@@ -78,7 +79,7 @@ client.on('ready', () => {
                     .setTitle(" :lollipop:  DAILY PIC  :purple_heart: ")
                     .setColor("#FFDEDE")
                     .setImage(imageURL)
-                client.channels.cache.get("821068653348913223").send({embed:hembed})
+                client.channels.cache.get("821068653348913223").send(hembed)
             });
 
         }else{
@@ -89,7 +90,8 @@ client.on('ready', () => {
                     .setTitle(" :lollipop:  DAILY PIC  :purple_heart: ")
                     .setColor("#FFDEDE")
                     .setImage(imageURL)
-                client.channels.cache.get("844291548140011540").send({embed:hembed})
+                client.channels.cache.get("844291548140011540").send("↓↓ @here ↓↓")
+                client.channels.cache.get("844291548140011540").send(hembed)
                 });
         }
 
