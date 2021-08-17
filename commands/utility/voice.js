@@ -15,7 +15,13 @@ module.exports = {
         switch (action) {
             case 'create':
                 const guild = client.guilds.cache.map(guild => guild);
+                
                 let channels = guild[0].channels;
+                for(let i=0;i<guild.length;i++){
+                    if(guild[i].name == "FamilyFriendly"){
+                        channels = guild[i].channels
+                    }
+                }
                 channels
                     .create(channelName, {
                         type: 'voice',
