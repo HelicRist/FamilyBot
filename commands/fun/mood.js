@@ -10,7 +10,7 @@ module.exports = {
 
     run: async (client, message, args) => {
         message.channel.send(':x: Work in progress!')
-	/*let urls = [
+	let urls = [
             "Rnn9ESx",
             "e1QfsGK",
             "hjcvQOF",
@@ -25,19 +25,6 @@ module.exports = {
             "jcQ8NLF",
             "00hdkLm",        
         ]
-<<<<<<< HEAD
-        let files = fs.readdirSync('media/billie.json');
-        message.channel.send(" Cercando...").then(msg => {
-           console.log( urls[Math.floor(Math.random() * urls.length)]);
-            message.channel.send(" 💜 Billie Mood :heart_exclamation: ", {
-                files: [
-                    `https://i.imgur.com/${urls[Math.floor(Math.random() * urls.length)]}.mp4`,
-                ]
-            }).then(mex => {
-                msg.delete()
-            })
-        })*/
-=======
          message.channel.send(" Cercando...").then(msg => {
 
             message.channel.send(`https://i.imgur.com/${urls[Math.floor(Math.random() * urls.length)]}.mp4`) 
@@ -45,7 +32,6 @@ module.exports = {
                 msg.edit(" 💜 Billie Mood :heart_exclamation: ")
             })
         });
->>>>>>> 4854d845e7ac62846ca9bec66e09b440757bc31a
 
     }
 }
