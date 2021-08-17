@@ -21,16 +21,20 @@ module.exports = {
                     const command = require(`../../commands/${folder}/${file}`);
                     commands += `${command.name}, `
                 }
+
                 fields.push({
-                    name: folder,
-                    value: commands,
+                    name: folder.toUpperCase(),
+                    value: '`' + `${config.prefix}help ${folder}` + '`',
+                    inline: true
                 });
             }
 
-            const helpEmbed = {
+
+
+            let helpEmbed = {
                 title: 'Help',
                 author: { name: 'Friendly Bot', icon_url: config.iconUrl, url: config.iconUrl },
-                description: 'Lista dei comandi che il bot offre.\nPer proposte, scrivere in <#867506577719296010>',
+                description: 'Lista dei comandi del bot. Per proposte, scrivere in <#867506577719296010>',
                 color: '18f0af',
                 fields: fields,
                 thumbnail: { url: config.iconUrl },
@@ -40,23 +44,54 @@ module.exports = {
         }
         else {
             let commandFolderName = args[0];
-            console.log(commandFolderName);
             const commandFolders = fs.readdirSync('./commands');
-            console.log(commandFolders);
             if (!commandFolders.includes(commandFolderName)) {
                 message.reply(`:x: Sezione comandi inesistente!`)
                 return;
             }
+
+
+            let checkSubs = source => fs.readdirSync(source, { withFileTypes: true })
+                .filter(dir => dir.isDirectory())
+                .map(dir => dir.name)
+
             let folderCommands = [];
-            const commandFiles = fs.readdirSync(`./commands/${commandFolderName}`).filter(file => file.endsWith('.js'));
-            for (const file of commandFiles) {
-                const command = require(`../../commands/${commandFolderName}/${file}`);
+            if (checkSubs(`./commands/${commandFolderName}`).length > 0) {
+                console.log(`${commandFolderName} ha sottocartelle`);
+                let subFolder = checkSubs(`./commands/${commandFolderName}`)[0];
+                let mainFile = fs.readdirSync(`./commands/${commandFolderName}`).filter(file => file.endsWith('.js'));
+                let subFiles = (fs.readdirSync(`./commands/${commandFolderName}/${subFolder}`).filter(file => file.endsWith('.js')));
+
+                const mainCommand = require(`../../commands/${commandFolderName}/${mainFile[0]}`);
                 folderCommands.push(
                     {
-                        name: command.name,
-                        value: `${command.description}\n${command.usage}`,
+                        name: mainCommand.name,
+                        value: mainCommand.description+'\n'+'`'+mainCommand.usage+'`',
                     }
                 );
+
+                for (const file of subFiles) {
+                    const command = require(`../../commands/${commandFolderName}/${subFolder}/${file}`);
+                    folderCommands.push(
+                        {
+                            name: command.name,
+                            value: command.description+'\n'+'`'+command.usage+'`',
+                        }
+                    );
+                }
+            }
+            else {
+                console.log(`${commandFolderName} non ha sottocartelle`);
+                const commandFiles = fs.readdirSync(`./commands/${commandFolderName}`).filter(file => file.endsWith('.js'));
+                for (const file of commandFiles) {
+                    const command = require(`../../commands/${commandFolderName}/${file}`);
+                    folderCommands.push(
+                        {
+                            name: command.name,
+                            value: command.description+'\n'+'`'+command.usage+'`',
+                        }
+                    );
+                }
             }
 
             let helpEmbed = {

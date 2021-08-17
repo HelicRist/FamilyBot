@@ -14,10 +14,10 @@ module.exports = {
 
     run: async (client, message, args) => {
         client.animeCommands = new Discord.Collection();
-        const animeCommandFiles = fs.readdirSync('./commands/anime/').filter(file => file.endsWith('.js'));
+        const animeCommandFiles = fs.readdirSync('./commands/anime/sub').filter(file => file.endsWith('.js'));
         
         for (const animeCommandFile of animeCommandFiles) {
-            const command = require(`./${animeCommandFile}`);
+            const command = require(`./sub/${animeCommandFile}`);
             client.animeCommands.set(command.name, command);
         }
 
@@ -37,7 +37,7 @@ module.exports = {
             let animes = []
             Object.entries(animeJSON).map(anime => {
                 if(anime[1].length > 0){
-                    anime[0] = anime[0].replaceAll('Z', ' ').replaceAll('_','-')
+                    anime[0] = anime[0].replace('Z', ' ').replace('_','-')
                     animes.push(anime);
                 }
             })
