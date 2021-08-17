@@ -29,11 +29,16 @@ module.exports = {
                             genre = genre.replace(/\s/g, 'Z');
                             genre = genre.replace('-', '_');
 
-                            anime[genre].forEach(anime => {
-                                if (anime == response.data.data[0].attributes.canonicalTitle) {
-                                    exists = true;
-                                }
-                            })
+                            if (!anime[genre]) {
+                                anime[genre] = [];
+                            }
+                            else {
+                                anime[genre].forEach(anime => {
+                                    if (anime == response.data.data[0].attributes.canonicalTitle) {
+                                        exists = true;
+                                    }
+                                })
+                            }
 
                             if (!exists) {
                                 anime[genre].push(response.data.data[0].attributes.canonicalTitle)
@@ -64,7 +69,7 @@ module.exports = {
                 message.channel.send({
                     embed: {
                         color: '#ec4c4c',
-                        description: `:red_circle: Errore nell'inserimento di **${animeTitle}**`
+                        description: `:red_circle: Errore generico nell'inserimento di **${animeTitle}**`
                     }
                 });
                 console.log((`Error querying ${animeTitle} in Kitsu APIs`).red);
