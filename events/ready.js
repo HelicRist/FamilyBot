@@ -21,7 +21,7 @@ module.exports = {
         //
         let scheduledMessage = new cron.CronJob('00 30 18 * * *', () => {
 
-            const hembed = new MessageEmbed();
+            const hembed = new Discord.MessageEmbed();
             if (r50()) {
                 akaneko.neko().then((imageURL) => {
                     console.log(imageURL);
