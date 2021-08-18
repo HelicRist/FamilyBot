@@ -3,7 +3,7 @@ module.exports = {
     name: "play",
     description: `leonardo ha problemi`,
     aliases: ["leonardo ha problemi"],
-    usage: leonardo ha problemi`,
+    usage: `leonardo ha problemi`,
     category: "music",
     run: async (client, message, args) => {
 
