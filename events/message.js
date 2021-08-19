@@ -35,8 +35,9 @@ module.exports = {
         mediaSaver();
 
         function mediaSaver() {
-            //todo in embed togli testo non del link
-            if(message.content.includes("lul")){
+           const contenuto = message.content.toLowerCase();
+            
+            if(contenuto.includes("lul")){
             if (message.embeds.length > 0) {
                 media = message.content.replace("lul","")
                 jsonSave(media)
