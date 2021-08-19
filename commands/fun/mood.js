@@ -9,7 +9,6 @@ module.exports = {
     category: 'fun',
 
     run: async (client, message, args) => {
-        message.channel.send(':x: Work in progress!')
 	let urls = [
             "Rnn9ESx",
             "e1QfsGK",
