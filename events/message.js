@@ -1,4 +1,7 @@
 const config = require('../config.json');
+const PasteClient = require("pastebin-api").default;
+const pastebin = new PasteClient(config.pastebinKey);
+const fs = require("fs")
 
 module.exports = {
     name: 'message',
@@ -27,5 +30,39 @@ module.exports = {
                 message.reply(`:x: Comando ${command} non trovato !`);
             }
         }
+        let media;
+
+        mediaSaver();
+
+        function mediaSaver() {
+            //todo in embed togli testo non del link
+            if(message.content.includes("lul")){
+            if (message.embeds.length > 0) {
+                media = message.content.replace("lul","")
+                jsonSave(media)
+
+            }
+            else if (message.attachments.size > 0) {
+                let Attachment = (message.attachments).array();
+                Attachment.forEach(function (attachment) {
+                    media = attachment.url
+                });
+
+                jsonSave(media)
+            }
+        }
+        };
+        function jsonSave(testo) {
+            fs.readFile('data/media.json', 'utf-8', (err, data) => {
+                if (err) { throw err; }
+                let mediaJson = JSON.parse(data)
+                mediaJson.data.push(testo)
+                fs.writeFile('data/media.json', JSON.stringify(mediaJson), (err) => {
+                    if (err) { throw err; }
+                });
+            });
+
+        }
+
     }
 }
