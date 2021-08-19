@@ -19,16 +19,11 @@ for (const folder of commandFolders) {
 }
 
 client.events = new discord.Collection();
-//try {
-    const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-    for (const file of eventFiles) {
-        const event = require(`./events/${file}`);
-        client.events.set(event.name, event);
-    }
-//}
-//catch (err) {
-//    console.log((`Il bot ha riscontrato un errore durante l'avvio`).red);
-//}
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+for (const file of eventFiles) {
+    const event = require(`./events/${file}`);
+    client.events.set(event.name, event);
+}
 
 client.on('message', message => {
     client.events.get('message').run(client, message);
