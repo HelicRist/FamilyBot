@@ -15,14 +15,8 @@ module.exports = {
 
         let member = newState.member;
         if (newChannel === config.createChannelID) {
-            const guild = client.guilds.cache.map(guild => guild);
-
-            let channels = guild[0].channels;
-            for (let i = 0; i < guild.length; i++) {
-                if (guild[i].name == "FamilyFriendly") {
-                    channels = guild[i].channels
-                }
-            }
+            const Guild = client.guilds.cache.get("666312151354572801");
+            channels = Guild.channels
             channels
                 .create(channelName, {
                     type: 'voice',
