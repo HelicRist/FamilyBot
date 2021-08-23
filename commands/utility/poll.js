@@ -10,7 +10,7 @@ module.exports = {
     category: "fun",
     run: async (client, message, args) => {
 
-        let embed = new MessageEmbed().setTitle("vuoto");
+        let embed = new MessageEmbed().setTitle("vuoto").setColor("#6a2445");
 
         let domanda;
         let risposte = [];
