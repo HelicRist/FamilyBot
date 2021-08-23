@@ -7,51 +7,55 @@ module.exports = {
     name: 'message',
     description: 'message event',
     run: async (client, message) => {
-        if (message.author.bot) return;
-        if (message.content.startsWith(config.prefix)) {
-            const command = message.content.split(' ')[0].slice(config.prefix.length);
-            const args = message.content.split(' ').slice(1);
-            const commandObject = client.commands.get(command)
-                || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
-            if (commandObject) {
-                commandObject.run(client, message, args);
-
-                let commandEmbed = {
-                    title: 'Comando richiamato',
-                    description: `${message.author} => ${command}`,
-                    fields: [{
-                        name: 'Link al messaggio',
-                        value: `[Click qui per un viaggio rapido](https://discord.com/channels/666312151354572801/${message.channel.id}/${message.id})`,
-                    }],
-                    color: '#154b85',
-                }
-                client.channels.cache.get(config.commandsLogChannelID).send({ embed: commandEmbed });
-            } else {
-                message.reply(`:x: Comando ${command} non trovato !`);
-            }
-        }
-        let media;
-
+      
+        commandHandler();
         mediaSaver();
 
-        function mediaSaver() {
-           const contenuto = message.content.toLowerCase();
-            
-            if(contenuto.includes("lul")){
-            if (message.embeds.length > 0) {
-                media = message.content.replace("lul","")
-                jsonSave(media)
 
-            }
-            else if (message.attachments.size > 0) {
-                let Attachment = (message.attachments).array();
-                Attachment.forEach(function (attachment) {
-                    media = attachment.url
-                });
-
-                jsonSave(media)
+        function commandHandler(){
+            if (message.author.bot) return;
+            if (message.content.startsWith(config.prefix)) {
+                const command = message.content.split(' ')[0].slice(config.prefix.length);
+                const args = message.content.split(' ').slice(1);
+                const commandObject = client.commands.get(command)
+                    || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
+                if (commandObject) {
+                    commandObject.run(client, message, args);
+    
+                    let commandEmbed = {
+                        title: 'Comando richiamato',
+                        description: `${message.author} => ${command}`,
+                        fields: [{
+                            name: 'Link al messaggio',
+                            value: `[Click qui per un viaggio rapido](https://discord.com/channels/666312151354572801/${message.channel.id}/${message.id})`,
+                        }],
+                        color: '#154b85',
+                    }
+                    client.channels.cache.get(config.commandsLogChannelID).send({ embed: commandEmbed });
+                } else {
+                    message.reply(`:x: Comando ${command} non trovato !`);
+                }
             }
         }
+        function mediaSaver() {
+            let media;
+            const contenuto = message.content.toLowerCase();
+
+            if (contenuto.includes("lul")) {
+                if (message.embeds.length > 0) {
+                    media = message.content.replace("lul", "")
+                    jsonSave(media)
+
+                }
+                else if (message.attachments.size > 0) {
+                    let Attachment = (message.attachments).array();
+                    Attachment.forEach(function (attachment) {
+                        media = attachment.url
+                    });
+
+                    jsonSave(media)
+                }
+            }
         };
         function jsonSave(testo) {
             fs.readFile('data/media.json', 'utf-8', (err, data) => {
