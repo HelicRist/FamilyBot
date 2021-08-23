@@ -55,17 +55,7 @@ module.exports = {
 
             //nessuno taggato: comandi secondari
         } else {
-            client.betCommands = new Discord.Collection();
-            const betCommandFiles = fs.readdirSync('./commands/bet/actions').filter(file => file.endsWith('.js'));
-            for (const betCommandFile of betCommandFiles) {
-                const command = require(`./actions/${betCommandFile}`);
-                client.betCommands.set(command.name, command);
-            }
-
-            for (const file of betCommandFiles) {
-                const betCommand = require(`./actions/${file}`);
-                client.betCommands.set(betCommand.name, betCommand);
-            }
+         
             switch (command) {
                 case 'classifica':
                     let players = [];
