@@ -27,7 +27,7 @@ module.exports = {
             akaneko.nsfw.hentai().then((imageURL) => {
 
                 console.log(imageURL);
-                message.channel.send("↓↓ @here ↓↓").then(() => {
+                 client.channels.cache.get("821068653348913223").channel.send("↓↓ @here ↓↓").then(() => {
                     hembed
                         .setTitle(" :lollipop:  DAILY PIC  :purple_heart: ")
                         .setColor("#FFDEDE")
