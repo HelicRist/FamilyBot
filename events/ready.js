@@ -20,20 +20,20 @@ module.exports = {
 
         }, 5000)
         //
-        let scheduledMessage = new cron.CronJob('00 45 14 * * *', () => {
+        let scheduledMessage = new cron.CronJob('00 45 13 * * *', () => {
 
             const hembed = new MessageEmbed();
 
             akaneko.nsfw.hentai().then((imageURL) => {
 
                 console.log(imageURL);
-                 client.channels.cache.get("821068653348913223").channel.send("↓↓ @here ↓↓").then(() => {
+                
                     hembed
                         .setTitle(" :lollipop:  DAILY PIC  :purple_heart: ")
                         .setColor("#FFDEDE")
                         .setImage(imageURL)
                     client.channels.cache.get("821068653348913223").send(hembed)
-                })
+                
             });
 
         });
