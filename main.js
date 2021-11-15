@@ -36,5 +36,9 @@ client.on('voiceStateUpdate', (oldState, newState) => {
 client.on('ready', () => {
     client.events.get('ready').run(client);
 });
+client.on('messageReactionAdd', (reaction, user) => {
+    client.events.get('messageReactionAdd').run(client,reaction,user);
+
+});
 
 client.login(process.env.TOKEN);
