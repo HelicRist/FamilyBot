@@ -1,0 +1,42 @@
+{
+    "mion": {
+        "mail": "andrea.mion.euganeo@gmail.com",
+        "numero": "Numero non disponibile",
+        "img":"https://i.imgur.com/Htn1lcg.jpeg"
+    },
+    "campagnolo":{
+        "mail": "irene.campagnolo.euganeo@gmail.com",
+        "numero": "Numero non disponibile",
+        "img":"https://i.imgur.com/QMzx0qk.jpeg"
+    },
+    "simonato": {
+        "mail": "antonella.simonato.euganeo@gmail.com",
+        "numero": "Numero non disponibile",
+        "img":"https://i.imgur.com/nO3Sw8A.jpeg"
+    },
+    "ceccon": {
+        "mail": "nicola.ceccon.euganeo@gmail.com",
+        "numero": "Numero non disponibile",
+        "img":"https://i.imgur.com/yBF7pI7.jpeg"
+    },
+    "silvan": {
+        "mail": "raffaele.silvan.euganeo@gmail.com",
+        "numero": "Numero non disponibile",
+        "img":"https://i.imgur.com/ZNlkqtY.png"
+    },
+    "ponzin": {
+        "mail": "luca.ponzin.euganeo@gmail.com",
+        "numero": "Numero non disponibile",
+        "img":"https://img.myloview.it/adesivi/camera-icon-vector-camera-icon-isolated-on-white-background-camera-icon-simple-and-modern-for-app-web-and-design-700-245051975.jpg"
+    },
+    "girotto": {
+        "mail": "carla.girotto.euganeo@gmail.com",
+        "numero": "Numero non disponibile",
+        "img":"https://i.imgur.com/tbF9tUU.jpeg"
+    },
+    "magarotto": {
+        "mail": "stefania.magarotto.euganeo@gmail.com",
+        "numero": "Numero non disponibile",
+        "img":"https://img.myloview.it/adesivi/camera-icon-vector-camera-icon-isolated-on-white-background-camera-icon-simple-and-modern-for-app-web-and-design-700-245051975.jpg"
+    }
+}

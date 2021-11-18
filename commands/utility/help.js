@@ -46,8 +46,12 @@ module.exports = {
             let commandFolderName = args[0];
             const commandFolders = fs.readdirSync('./commands');
             if (!commandFolders.includes(commandFolderName)) {
-                message.reply(`:x: Sezione comandi inesistente!`)
-                return;
+                return message.channel.send({
+                    embed: {
+                        description: `:x: Comando inesistente!`,
+                        color: '#ff0000',
+                    }
+                })
             }
 
 
