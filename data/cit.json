@@ -56,7 +56,7 @@
         ],
         "img": "https://i.imgur.com/DfrbAzu.jpeg"
     },
-    "carla": {
+    "girotto": {
         "cit": [
             "Boni tosi",
             "Maria stuarda",
@@ -95,7 +95,7 @@
         ],
         "img": "https://i.imgur.com/cpXIeK3.jpeg"
     },
-    "irene": {
+    "campagnolo": {
         "cit": [
             "Open Roberta",
             "Andate su micromag",
@@ -108,7 +108,7 @@
         ],
         "img": "https://i.imgur.com/XQf6m8t.jpeg"
     },
-    "antonella": {
+    "simonato": {
         "cit": [
             "Odio far prediche però le faccio",
             "Io ho già cominciato ragazzi",
@@ -164,5 +164,25 @@
             "Mamma posso bere ancora(molon alla zamperlin)"
         ],
         "img": "https://www.laleggepertutti.it/wp-content/uploads/2019/07/disabile-legge-104.jpg"
+    },
+    "ceccon":{
+        "cit":[
+            "Gli indirizzi IP sono indirizzi IP"
+        ]
+    },
+    "silvan":{
+        "cit":[
+            "Hai scritto 'Forse'? 4!"
+        ]
+    },
+    "magarotto":{
+        "cit":[
+            "NoN cAlCiAtE i PalLoNi dA PalLaVoLo!"
+        ]
+    },
+    "ponzin":{
+        "cit":[
+            "Mussolini era un pagliaccio!"
+        ]
     }
 }
