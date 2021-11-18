@@ -1,9 +1,10 @@
 {
-    "prefix": "f.",
+    "prefix": "<",
     "guildID":"666312151354572801",
     "commandsLogChannelID": "867458725231722506",
     "createChannelID": "867840574367465472",
     "tempChannelsCategoryID": "691986420813791233",
+    "biblioChannelsCategoryID":"906239246757670953",
     "voiceLogChannelID": "867480593251303424",
     "idRimaro":"617745189670223911",
     "idHeldin":"342343548718284801",
