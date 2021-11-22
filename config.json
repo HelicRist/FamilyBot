@@ -1,5 +1,5 @@
 {
-    "prefix": "f.",
+    "prefix": ".",
     "guildID":"666312151354572801",
     "commandsLogChannelID": "867458725231722506",
     "createChannelID": "867840574367465472",
@@ -9,5 +9,24 @@
     "idRimaro":"617745189670223911",
     "idHeldin":"342343548718284801",
     "iconUrl":"https://i.imgur.com/6A2jQnm.jpeg",
-    "pastebinKey":"AS3fbewJfUyF7FuHAl0zt-2UVeOSJIBR"
+    "pastebinKey":"AS3fbewJfUyF7FuHAl0zt-2UVeOSJIBR",
+    "messagesToCheckReactions": [
+        {
+            "channelID": "909849361163362334",
+            "messageID": "909882764566859807"
+        }
+    ],
+    "subjectRolesID": 
+        [
+            "909849587517386752",
+            "909896349707796520",
+            "909896485460668446",
+            "909896544956874792",
+            "909896604679565373",
+            "909896653178302484",
+            "909896726620545125",
+            "909896942425882684",
+            "909897008616177695"
+        ]
+    
 }
