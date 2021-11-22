@@ -9,6 +9,7 @@ module.exports = {
     name: 'voiceStateUpdate',
     description: 'voiceStateUpdate event',
     run: async (client, oldState, newState) => {
+        const Guild = client.guilds.cache.get("666312151354572801");
         let oldChannel = oldState.channelID;
         let newChannel = newState.channelID;    
         let member = newState.member;
@@ -20,7 +21,6 @@ module.exports = {
         //
         let channelName = emojis[Math.floor(Math.random() * emojis.length)] + randomWords(3).join(" ") + emojis[Math.floor(Math.random() * emojis.length)] + '#';
         if (newChannel === config.createChannelID) {
-            const Guild = client.guilds.cache.get("666312151354572801");
             for (let m in materie){  
 
                 if (member.roles.cache.some(role => role.name === materie[m])) {
@@ -53,7 +53,14 @@ module.exports = {
         }
         try {
             if (oldState.channel.name.endsWith('#') && oldState.channel.members.size < 1) {
-                oldState.channel.delete().catch(console.error);
+                oldState.channel.delete().catch(console.error)
+                .then(()=>{
+                    materie.forEach(materia => {
+                        if(oldState.member.roles.cache.some(role => role.name === materia)){
+                            member.roles.remove(Guild.roles.cache.find(role => role.name === materia));
+                        }
+                    })
+                })
 
                 let logVoice = {
                     title: 'Cancellato canale vocale',
@@ -66,55 +73,5 @@ module.exports = {
         } catch (err) {
             console.log(('oldState does not exists!').red);
         }
-
-    function biblio(){
-
-        if (newChannel === config.createChannelID) {
-            for (let m in materie){  
-
-                if (member.roles.cache.some(role => role.name === materie[m])) {
-
-                    channelName = `Aula di ${materie[m]} ${books[Math.floor(Math.random() * books.length)]} #`
-                }
-            }
-            
-                
-                const Guild = client.guilds.cache.get("666312151354572801");
-                channels = Guild.channels
-                channels
-                .create(channelName, {
-                    type: 'voice',
-                })
-                .then(channel => {
-                    channel.setParent(config.biblioChannelsCategoryID);
-                    member.voice.setChannel(channel);
-                    
-                    let logVoice = {
-                        title: 'Canale Vocale (aula studio)',
-                        description: `${member} ha creato => ${channelName}`,
-                        color: '#18f02e'
-                    }
-                    
-                    client.channels.cache.get(config.voiceLogChannelID).send({ embed: logVoice });
-                    
-                })
-                .catch(err => {
-                    console.log(err);
-                    console.log(('I was enable to create a temp channel!').red);
-                });
-        }
-        if (oldState.channel.name.endsWith('#') && oldState.channel.members.size < 1) {
-            oldState.channel.delete().catch(console.error);
-
-            let logVoice = {
-                title: 'Cancellato canale vocale',
-                description: `${member} => ${oldState.channel.name}`,
-                color: '#f01818'
-            }
-
-            client.channels.cache.get(config.voiceLogChannelID).send({ embed: logVoice });
-        }
-    };
-    //biblio();
     }
 }
