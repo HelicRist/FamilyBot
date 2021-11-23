@@ -35,17 +35,18 @@ module.exports = {
                     permissions = [
                         {
                             id: Guild.roles.everyone,
-                            deny: [Permissions.FLAGS.VIEW_CHANNEL],
+                            allow: [Permissions.FLAGS.VIEW_CHANNEL],
+                            deny: [Permissions.FLAGS.CONNECT],
                         },
                         {
                             id: id,
                             allow: [Permissions.FLAGS.VIEW_CHANNEL],
+                            allow: [Permissions.FLAGS.CONNECT],
                         },
 
                     ]
                 }
             });
-            console.log(Guild.roles);
             channels = Guild.channels
             channels
                 .create(channelName, {
@@ -77,27 +78,38 @@ module.exports = {
                 });
         }
         try {
-            if (oldState.channel.name.endsWith('#') && oldState.channel.members.size < 1) {
-                oldState.channel.delete().catch(console.error)
-                    .then(() => {
-                        materie.forEach(materia => {
-                            if (oldState.member.roles.cache.some(role => role.name === materia)) {
-                                member.roles.remove(Guild.roles.cache.find(role => role.name === materia));
-                            }
+            if (oldState.channel.name.endsWith('#')) {
+                let role = false;
+                let member = oldState.member;
+                subjectID.forEach(async (id) => {
+                    if (member.roles.cache.has(id)) {
+                        await member.roles.remove(id)
+                        role = true;
+                    }
+                });
+
+                if (!role && oldState.channel.members.size < 1) {
+                    oldState.channel.delete().catch(console.error)
+                        .then(() => {
+                            materie.forEach(materia => {
+                                if (oldState.member.roles.cache.some(role => role.name === materia)) {
+                                    member.roles.remove(Guild.roles.cache.find(role => role.name === materia));
+                                }
+                            })
                         })
-                    })
 
-                let logVoice = {
-                    title: 'Cancellato canale vocale',
-                    description: `${member} => ${oldState.channel.name}`,
-                    color: '#f01818'
+                    let logVoice = {
+                        title: 'Cancellato canale vocale',
+                        description: `${member} => ${oldState.channel.name}`,
+                        color: '#f01818'
+                    }
+
+                    client.channels.cache.get(config.voiceLogChannelID).send({ embed: logVoice });
                 }
-
-                client.channels.cache.get(config.voiceLogChannelID).send({ embed: logVoice });
             }
         } catch (err) {
-            console.log(('oldState does not exists!').red);
-            
+            //  console.log(('oldState does not exists!').red);
+
         }
     }
 }
