@@ -38,16 +38,15 @@ module.exports = {
             })
         }
 
-        console.log(prof);
         message.channel.send({
             embed: {
-                color: '#00ff00',
+                color: '18f0af',
                 title: `${prof.toUpperCase()}`,
                 description: cit[prof].cit[0],
                 fields: [
                     {
-                        name: 'Contatti',
-                        value: `Mail: ${contatti[prof].mail}\nNumero: ${contatti[prof].numero}`,
+                        name: 'CONTATTI',
+                        value: `**Mail**: \n${contatti[prof].mail.join('\n')}\n**Numero**:\n${contatti[prof].numero}`,
                     },
                 ],
                 thumbnail: { url: contatti[prof].img },
