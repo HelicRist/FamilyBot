@@ -14,7 +14,6 @@ module.exports = {
         if(args<1){
             let fields = [];
             for(let prof in contatti){
-                console.log(prof);
                 fields.push({
                     name: `${prof}`,
                     value: `${contatti[prof].mail} - ${contatti[prof].numero}`,
@@ -39,7 +38,7 @@ module.exports = {
             })
         }
 
-        console.log(contatti[prof].img);
+        console.log(prof);
         message.channel.send({
             embed: {
                 color: '#00ff00',
