@@ -45,7 +45,7 @@ module.exports = {
         const mudaeRoleID = "914873251023429713";
         let mudaeBot = await Guild.members.fetch(mudaeID)
 
-        let mudaeRoleAddd = new cron.CronJob('01 15 * * *', () => {
+        let mudaeRoleAddd = new cron.CronJob('37 14 * * *', () => {
             mudaeBot.roles.add(mudaeRoleID);
         }, null, true, 'Europe/Rome');
         mudaeRoleAddd.start()
