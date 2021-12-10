@@ -51,7 +51,7 @@ module.exports = {
         mudaeRoleAddd.start()
 
         //MUDAE REMOVE
-        let mudaeRoleRemove = new cron.CronJob('37 21 * * *', () => {
+        let mudaeRoleRemove = new cron.CronJob('38 21 * * *', () => {
             mudaeBot.roles.remove(mudaeRoleID);
         }, null, true, 'Europe/Rome');
         mudaeRoleRemove.start()
