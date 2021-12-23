@@ -38,7 +38,7 @@ module.exports = {
             });
 
         });
-        scheduledMessage.start()
+     //   scheduledMessage.start()
 
         //MUDAE ADD
         const mudaeID = "432610292342587392";
@@ -49,7 +49,7 @@ module.exports = {
             mudaeBot.roles.add(mudaeRoleID);
         }, null, true, 'Europe/Rome');
         
-        mudaeRoleAddd.start()
+      //  mudaeRoleAddd.start()
 
         //MUDAE REMOVE
              //   let mudaeRoleRemove = new cron.CronJob('38 21 * * 0-5', () => {
