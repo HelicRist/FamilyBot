@@ -1,6 +1,6 @@
 const config = require('../config.json');
-const PasteClient = require("pastebin-api").default;
-const pastebin = new PasteClient(config.pastebinKey);
+// const PasteClient = require("pastebin-api").default;
+// const pastebin = new PasteClient(config.pastebinKey);
 const fs = require("fs")
 
 module.exports = {
