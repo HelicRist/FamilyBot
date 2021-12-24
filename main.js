@@ -8,7 +8,7 @@ const client = new discord.Client();
 const fs = require('fs');
 const akaneko = require('akaneko');
 const commandFolders = fs.readdirSync('./commands');
-
+//commento prova
 client.commands = new discord.Collection();
 for (const folder of commandFolders) {
     const commandFIles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
