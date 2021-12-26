@@ -31,7 +31,7 @@
     "random-words": "^1.1.1",
     "rule34": "^1.0.0"
   },
-    "engines": {
+  "engines": {
     "node": ">= 16.0.0",
     "npm": ">= 8.0.0"
   },
