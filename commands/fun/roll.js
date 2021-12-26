@@ -12,6 +12,9 @@ module.exports = {
         
         let diceSides, modifier, roll, result,all = 0
         modifier = 0
+        if(!args[0]){
+            return message.reply(":x: Inserisci un dado valido pirla :x:")
+        }
         all = args[0].split("+");
         diceSides = all[0]
         if (isNaN(diceSides) || diceSides < 1) return message.reply(":x: Inserisci un dado valido pirla :x:")
