@@ -4,17 +4,9 @@ const Discord = require('discord.js')
 const config = require('../../config.json')
 const sql3 = require("sqlite3")
 const tabPnt = "punteggi";
-const tabBet = "scommessa"
+const tabBet = "scommessa";
 
-
-client.betCommands = new Discord.Collection();
-const betCommandFiles = fs.readdirSync('./commands/bet/sub').filter(file => file.endsWith('.js'));
-
-for (const betCommandFile of betCommandFiles) {
-    const command = require(`./sub/${betCommandFile}`);
-    client.betCommands.set(command.name, command);
-}
-
+const subCommands = require('./sub/test');
 
 //TODO:
 // comandi
@@ -31,22 +23,25 @@ module.exports = {
     category: 'fun',
 
     run: async (client, message, args) => {
-       
-       message.reply("Coming soon")
-       const command = args[0];
-       const commandObject = client.animeCommands.get(command)
-           || client.animeCommands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
-       if (commandObject) {
-           args.shift();
-           args.forEach(arg => {
-               animeTitle = animeTitle + arg + ' ';
-           });
-           commandObject.run(message, animeTitle);
-       }
-       //comando default con 0 args
-       else {
+        if (message.author.id != "342343548718284801") { return message.reply("Coming soon") }
+        client.betCommands = new Discord.Collection();
+        const betCommandFiles = fs.readdirSync('./commands/bet/sub').filter(file => file.endsWith('.js'));
 
-       }
+        for (const betCommandFile of betCommandFiles) {
+            const command = require(`./sub/${betCommandFile}`);
+            client.betCommands.set(command.name, command);
+        }
+        if (args[0] == "win") {
+            subCommands.win(message, args)
+        } else if (args[0] == "rank") {
+            subCommands.rank(message, args)
+
+        } else if (args[0] == "signin") {
+            subCommands.signin(message, args)
+
+        }
+
+
         // let sql = `UPDATE ${tabPnt}
         //     SET punti =punti + ?
         //     WHERE id = ?`;
