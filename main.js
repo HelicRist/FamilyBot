@@ -1,12 +1,8 @@
 const discord = require('discord.js');
-const config = require('./config.json');
 require('colors');
-const {  MessageEmbed } = require('discord.js');
 require('dotenv').config();
-const cron = require('cron');
 const client = new discord.Client();
 const fs = require('fs');
-const akaneko = require('akaneko');
 const commandFolders = fs.readdirSync('./commands');
 //commento prova
 client.commands = new discord.Collection();

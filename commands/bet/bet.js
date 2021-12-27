@@ -5,8 +5,16 @@ const config = require('../../config.json')
 const sql3 = require("sqlite3")
 const tabPnt = "punteggi";
 const tabBet = "scommessa"
-// TODO: fil partecipanti e punti
-// file scommesse in corso 
+
+
+client.betCommands = new Discord.Collection();
+const betCommandFiles = fs.readdirSync('./commands/bet/sub').filter(file => file.endsWith('.js'));
+
+for (const betCommandFile of betCommandFiles) {
+    const command = require(`./sub/${betCommandFile}`);
+    client.betCommands.set(command.name, command);
+}
+
 
 //TODO:
 // comandi
@@ -25,6 +33,20 @@ module.exports = {
     run: async (client, message, args) => {
        
        message.reply("Coming soon")
+       const command = args[0];
+       const commandObject = client.animeCommands.get(command)
+           || client.animeCommands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
+       if (commandObject) {
+           args.shift();
+           args.forEach(arg => {
+               animeTitle = animeTitle + arg + ' ';
+           });
+           commandObject.run(message, animeTitle);
+       }
+       //comando default con 0 args
+       else {
+
+       }
         // let sql = `UPDATE ${tabPnt}
         //     SET punti =punti + ?
         //     WHERE id = ?`;
