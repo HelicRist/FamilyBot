@@ -25,9 +25,11 @@ module.exports = {
     run: async (client, message, args) => {
         const db = new sql3.Database('data/bet.db', sql3.OPEN_READWRITE, (err) => {
             if (err) { console.error(err.message); }
-            console.log('Connected to the chinook database.');
+            console.log('Leggo db');
         });
+//solo dev
         if (message.author.id != "342343548718284801" && message.author.id != "784807958742695966") { return message.reply("Coming soon") }
+        
         let embed = new MessageEmbed()
             .setTitle("Bet in corso")
         switch (args[0]) {
@@ -78,22 +80,28 @@ module.exports = {
                     });
                 } else {//nessuno taggato e nessun comando secondario: mostra scommesse
                     let embed = new MessageEmbed()
-                    .setTitle("Errore (mostra scommesse)")
-                    db.serialize(() => {
-                        db.each(`SELECT * FROM ${tabBet}`, (err, row) => {
-                            if (err) { console.error(err.message); }
+                        .setTitle("Errore (mostra scommesse)")
+                    let bets = [];
+                    db.all(`SELECT * FROM ${tabBet}`, [], (err, rows) => {
+                        if (err) { throw err;}
+
+                        rows.forEach((row) => {
+
+                            if (row.aperta == 1) {
+                                bets.push(`═════════════\n**${row.id}** | <@${row.idUser1}> VS <@${row.idUser2}> | ${row.punti} :coin: \n ${row.scommessa} `)
+                            }
                             console.log(row);
                         });
+                        console.log("fuori each, prima embed");
+                        embed
+                            .setColor("#d20202")
+                            .setTitle("Bet In Corso")
+                            .setThumbnail("https://cdn3.iconfinder.com/data/icons/sport-vol-1-3/512/7-512.png")
+                            .setDescription(bets)
+                            .setFooter("═════════════")
 
+                        message.channel.send(embed);
                     });
-                    embed
-                    .setColor("#d20202")
-                    .setTitle("Bet In Corso")
-                    .setThumbnail("https://cdn3.iconfinder.com/data/icons/sport-vol-1-3/512/7-512.png")
-                    .setDescription("betSingola")
-                    .setFooter("═════════════")
-                    message.channel.send(embed);
-
                 }
                 break;
         }
