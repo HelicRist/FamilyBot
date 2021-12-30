@@ -6,11 +6,13 @@ const config = require('../../../config.json')
 
 
 function win(message, args) {
+    let embed = new MessageEmbed()
+    .setTitle("Errore (win)")
     const db = new sql3.Database('data/bet.db', sql3.OPEN_READWRITE, (err) => {
         if (err) { console.error(err.message); }
         console.log('Leggo db');
     });
-    let winner, looser, idBet, punti;
+    let winner, loser, idBet, punti,scommessa;
     //win dare punti
     let sql = `UPDATE ${tabPnt}
             SET punti =punti + ?
@@ -23,40 +25,57 @@ function win(message, args) {
         if (err) { throw err; }
         if (message.author.id != rows[0].idUser1 && message.author.id != rows[0].idUser2) return message.reply(":x: Questa scommessa non ti riguarda :x:")
         if (rows[0].aperta != 1) { return message.reply(":x: Bet già reclamata :x:") }
-        if (winner != rows[0].idUser2) {
-            looser = rows[0].idUser2;
-        } else looser = rows[0].idUser1;
-        punti = rows[0].punti;
+        message.react("👍")
 
-        console.log(`user winner  ${winner}\n
-    loser:${looser} \n
-    punti:${punti} \n
-    noBet ${idBet}`);
-        let data = [punti, winner]
-        //update (win)
-        db.run(sql, data, function (err) {
-            if (err) {
-                return console.error(err.message);
-            }
-            console.log(`Row(s) updated: ${this.changes}`);
-        });
-        //sql per perdente
-        data = [-punti, looser];
-        db.run(sql, data, function (err) {
-            if (err) {
-                return console.error(err.message);
-            }
-            console.log(`Row(s) updated: ${this.changes}`);
-        });
-        //sql per aperta=0
-        db.run(`UPDATE ${tabBet}
+        if (winner != rows[0].idUser2) {
+            loser = rows[0].idUser2;
+        } else loser = rows[0].idUser1;
+        punti = rows[0].punti;
+        scommessa = rows[0].scommessa;
+        //NUOVO
+        setTimeout(() => {
+            client.on('messageReactionAdd', (reaction, user) => {
+                if (reaction.emoji.name === "👍" && user.id === loser) {
+                    updateWinAndLoose()
+                    embed
+                    .setColor("#008f00")
+                    .setTitle("Bet Riscossa")
+                    .setThumbnail("https://cdn3.iconfinder.com/data/icons/casino-and-gambling-1/50/Casino_And_Gambling_Casino_chips-44-512.png")
+                    .setDescription(`<@${winner}> hai vinto ${punti} :coin: contro <@${loser}>\n${scommessa}`)
+                    .setFooter("Che la fortuna vi arrida")
+                message.channel.send(embed);
+                }
+            });
+        }, 10 * 1000);
+        //FINE NUOVO
+        function updateWinAndLoose() {
+
+            let data = [punti, winner]
+            //update (win)
+            db.run(sql, data, function (err) {
+                if (err) {
+                    return console.error(err.message);
+                }
+                console.log(`Row(s) updated: ${this.changes}`);
+            });
+            //sql per perdente
+            data = [-punti, loser];
+            db.run(sql, data, function (err) {
+                if (err) {
+                    return console.error(err.message);
+                }
+                console.log(`Row(s) updated: ${this.changes}`);
+            });
+            //sql per aperta=0
+            db.run(`UPDATE ${tabBet}
     SET aperta =${0}
     WHERE id = ${idBet}`, function (err) {
-            if (err) {
-                return console.error(err.message);
-            }
-            console.log(`Row(s) updated: ${this.changes}`);
-        });
+                if (err) {
+                    return console.error(err.message);
+                }
+                console.log(`Row(s) updated: ${this.changes}`);
+            });
+        }
 
     });//fine lettura
 
