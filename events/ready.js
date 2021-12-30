@@ -38,7 +38,7 @@ module.exports = {
             });
 
         });
-     //   scheduledMessage.start()
+        scheduledMessage.start()
 
         //MUDAE ADD
         const mudaeID = "432610292342587392";
@@ -58,7 +58,7 @@ module.exports = {
         }, null, true, 'Europe/Rome');
 
 
-        mudaeRoleRemove.start()
+        //mudaeRoleRemove.start()
 
         config.messagesToCheckReactions.forEach(async object => {
             let message = await client.channels.cache.get(object.channelID).messages.fetch(object.messageID);
