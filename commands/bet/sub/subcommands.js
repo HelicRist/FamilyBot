@@ -35,9 +35,9 @@ function win(client,message, args) {
         punti = rows[0].punti;
         scommessa = rows[0].scommessa;
         //NUOVO
-        setTimeout(() => {
-            client.on('messageReactionAdd', (reaction, user) => {
-                if (reaction.emoji.name === "👍" && user.id === loser) {
+        // setTimeout(() => {
+        //     client.on('messageReactionAdd', (reaction, user) => {
+        //         if (reaction.emoji.name === "👍" && user.id === loser) {
                     updateWinAndLoose()
                     embed
                         .setColor("#008f00")
@@ -45,10 +45,10 @@ function win(client,message, args) {
                         .setThumbnail("https://cdn3.iconfinder.com/data/icons/casino-and-gambling-1/50/Casino_And_Gambling_Casino_chips-44-512.png")
                         .setDescription(`<@${winner}> hai vinto ${punti} ${friendlyCoin} contro <@${loser}>\n${scommessa}`)
                         .setFooter("Che la fortuna vi arrida")
-                    message.channel.send(embed);
-                }
-            });
-        }, 10 * 1000);
+        //             message.channel.send(embed);
+        //         }
+        //     });
+        // }, 10 * 1000);
         //FINE NUOVO
         function updateWinAndLoose() {
 

@@ -61,9 +61,9 @@ module.exports = {
                     if (args.length < 3) return message.reply('Scommetti su qualcosa! Non a caso');
                     scommessa = args.slice(2).join(" ")
                     message.react("👍")
-                    setTimeout(() => {
-                        client.on('messageReactionAdd', (reaction, user) => {
-                            if (reaction.emoji.name === "👍" && user === opponent) {
+                    // setTimeout(() => {
+                    //     client.on('messageReactionAdd', (reaction, user) => {
+                    //         if (reaction.emoji.name === "👍" && user === opponent) {
                                 console.log("accettata");
                                 let sql = `INSERT INTO scommessa (idUser1,idUser2,punti,scommessa,aperta)
                         VALUES(?,?,?,?,?)`
@@ -82,9 +82,9 @@ module.exports = {
                                     .setThumbnail("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyHcDvZNdOBrsauNQJ4P5OMOfg65MnTG-z7d6Yu7b-UUWhC67mKuB8A-qb1TfJJ3bKUl0&usqp=CAU")
                                 message.channel.send(embed);
 
-                            }
-                        });
-                    }, 10 * 1000);
+                    //         }
+                    //     });
+                    // }, 10 * 1000);
 
                 } else {//nessuno taggato e nessun comando secondario: mostra scommesse
                     let embed = new MessageEmbed()
