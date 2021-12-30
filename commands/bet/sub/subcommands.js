@@ -34,10 +34,10 @@ function win(client,message, args) {
         } else loser = rows[0].idUser1;
         punti = rows[0].punti;
         scommessa = rows[0].scommessa;
-        //NUOVO
-        setTimeout(() => {
-            client.on('messageReactionAdd', (reaction, user) => {
-                if (reaction.emoji.name === "👍" && user.id === loser) {
+        // //NUOVO
+        // setTimeout(() => {
+        //     client.on('messageReactionAdd', (reaction, user) => {
+        //         if (reaction.emoji.name === "👍" && user.id === loser) {
                     updateWinAndLoose()
                     embed
                         .setColor("#008f00")
@@ -46,9 +46,9 @@ function win(client,message, args) {
                         .setDescription(`<@${winner}> hai vinto ${punti} ${friendlyCoin} contro <@${loser}>\n${scommessa}`)
                         .setFooter("Che la fortuna vi arrida")
                     message.channel.send(embed);
-                }
-            });
-        }, 10 * 1000);
+        //         }
+        //     });
+        // }, 10 * 1000);
         //FINE NUOVO
         function updateWinAndLoose() {
 
