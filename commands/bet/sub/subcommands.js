@@ -5,14 +5,16 @@ const { MessageEmbed } = require('discord.js');
 const config = require('../../../config.json')
 
 
-function win(message, args) {
+function win(client,message, args) {
+    const friendlyCoin = client.emojis.cache.find(emoji => emoji.name === "friendlyCoin");
+
     let embed = new MessageEmbed()
-    .setTitle("Errore (win)")
+        .setTitle("Errore (win)")
     const db = new sql3.Database('data/bet.db', sql3.OPEN_READWRITE, (err) => {
         if (err) { console.error(err.message); }
         console.log('Leggo db');
     });
-    let winner, loser, idBet, punti,scommessa;
+    let winner, loser, idBet, punti, scommessa;
     //win dare punti
     let sql = `UPDATE ${tabPnt}
             SET punti =punti + ?
@@ -38,12 +40,12 @@ function win(message, args) {
                 if (reaction.emoji.name === "👍" && user.id === loser) {
                     updateWinAndLoose()
                     embed
-                    .setColor("#008f00")
-                    .setTitle("Bet Riscossa")
-                    .setThumbnail("https://cdn3.iconfinder.com/data/icons/casino-and-gambling-1/50/Casino_And_Gambling_Casino_chips-44-512.png")
-                    .setDescription(`<@${winner}> hai vinto ${punti} :coin: contro <@${loser}>\n${scommessa}`)
-                    .setFooter("Che la fortuna vi arrida")
-                message.channel.send(embed);
+                        .setColor("#008f00")
+                        .setTitle("Bet Riscossa")
+                        .setThumbnail("https://cdn3.iconfinder.com/data/icons/casino-and-gambling-1/50/Casino_And_Gambling_Casino_chips-44-512.png")
+                        .setDescription(`<@${winner}> hai vinto ${punti} ${friendlyCoin} contro <@${loser}>\n${scommessa}`)
+                        .setFooter("Che la fortuna vi arrida")
+                    message.channel.send(embed);
                 }
             });
         }, 10 * 1000);
@@ -83,7 +85,9 @@ function win(message, args) {
 
 }
 
-function rank(message, args) {
+function rank(client,message, args) {
+    const friendlyCoin = client.emojis.cache.find(emoji => emoji.name === "friendlyCoin");
+
     let embedRank = new MessageEmbed()
         .setTitle("Errore")
 
@@ -98,7 +102,7 @@ function rank(message, args) {
 
         rows.forEach((row) => {
 
-            players.push(`<@${row.id}>: ${row.punti}`)
+            players.push(`<@${row.id}>: ${row.punti} ${friendlyCoin}`)
         });
         embedRank
             .setTitle("Classifica Punti")
@@ -115,7 +119,7 @@ function rank(message, args) {
 
 
 }
-function join(message, args) {
+function join(client,message, args) {
     const db = new sql3.Database('data/bet.db', sql3.OPEN_READWRITE, (err) => {
         if (err) { console.error(err.message); }
         console.log('Connected to the chinook database.');
@@ -134,7 +138,21 @@ function join(message, args) {
         if (err) { console.error(err.message); }
         console.log('Close the database connection.');
     });
+    client.users.fetch(message.author.id).then((user) => {
+        let embeDM = new MessageEmbed()
+            .setTitle('Sei stato registrato con successo!')
+            .setThumbnail(config.iconUrl)
+            .setColor("3498db")
+            .setDescription(`\nEcco una lista dei comandi per iniziare a scommettere:
+        **${config.prefix}bet**: per una lista delle scommesse in corso
+        **${config.prefix}bet rank**: per la classifica
+        **${config.prefix}bet** <@sfidante> <quantità_scommessa> <testo_scommessa>: per scommettere
+        **${config.prefix}bet win id_scommessa**: per riscuotere la scommessa
+        \n\nBuon divertimento!`)
+            .setFooter("e buona ludopatia")
 
-    console.log("fatto");
+        user.send(embeDM)
+    });
+    console.log(`Utente ${message.author.username} aggiunto`);
 }
 module.exports = { win, rank, join }

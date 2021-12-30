@@ -23,24 +23,29 @@ module.exports = {
     category: 'fun',
 
     run: async (client, message, args) => {
+        const friendlyCoin = client.emojis.cache.find(emoji => emoji.name === "friendlyCoin");
+
+        client.users.fetch(message.author.id).then((user) => {
+
+        });
         const db = new sql3.Database('data/bet.db', sql3.OPEN_READWRITE, (err) => {
             if (err) { console.error(err.message); }
             console.log('Leggo db');
         });
-//solo dev
+        //solo dev
         if (message.author.id != "342343548718284801" && message.author.id != "784807958742695966") { return message.reply("Coming soon") }
-        
+
         let embed = new MessageEmbed()
             .setTitle("Bet in corso")
         switch (args[0]) {
             case "win":
-                subCommands.win(message, args)
+                subCommands.win(client, message, args)
                 break;
             case "rank":
-                subCommands.rank(message, args)
+                subCommands.rank(client, message, args)
                 break;
             case "join":
-                subCommands.join(message, args)
+                subCommands.join(client, message, args)
                 break;
             default://scommessa con qualcuno
                 let scommessa;
@@ -56,39 +61,42 @@ module.exports = {
                     if (args.length < 3) return message.reply('Scommetti su qualcosa! Non a caso');
                     scommessa = args.slice(2).join(" ")
                     message.react("👍")
-                    client.on('messageReactionAdd', (reaction, user) => {
-                        if (reaction.emoji.name === "👍" && user === opponent) {
-                            console.log("accettata");
-                            let sql = `INSERT INTO scommessa (idUser1,idUser2,punti,scommessa,aperta)
+                    setTimeout(() => {
+                        client.on('messageReactionAdd', (reaction, user) => {
+                            if (reaction.emoji.name === "👍" && user === opponent) {
+                                console.log("accettata");
+                                let sql = `INSERT INTO scommessa (idUser1,idUser2,punti,scommessa,aperta)
                         VALUES(?,?,?,?,?)`
-                            let data = [message.author.id, opponent.id, punti, scommessa, 1]
-                            console.log(data);
-                            db.run(sql, data, function (err) {
-                                if (err) {
-                                    return console.error(err.message);
-                                }
-                                console.log(`Row(s) updated: ${this.changes}`);
-                            });
-                            embed
-                                .setTitle('Scommessa Aggiunta')
-                                .setDescription(`\n\  ${message.author} vs ${opponent} ${punti} :coin: \n\n${scommessa}`)
-                                .setColor("#001eff")
-                                .setThumbnail("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyHcDvZNdOBrsauNQJ4P5OMOfg65MnTG-z7d6Yu7b-UUWhC67mKuB8A-qb1TfJJ3bKUl0&usqp=CAU")
-                            message.channel.send(embed);
+                                let data = [message.author.id, opponent.id, punti, scommessa, 1]
+                                console.log(data);
+                                db.run(sql, data, function (err) {
+                                    if (err) {
+                                        return console.error(err.message);
+                                    }
+                                    console.log(`Row(s) updated: ${this.changes}`);
+                                });
+                                embed
+                                    .setTitle('Scommessa Aggiunta')
+                                    .setDescription(`\n\  ${message.author} vs ${opponent} ${punti} ${friendlyCoin} \n\n${scommessa}`)
+                                    .setColor("#001eff")
+                                    .setThumbnail("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyHcDvZNdOBrsauNQJ4P5OMOfg65MnTG-z7d6Yu7b-UUWhC67mKuB8A-qb1TfJJ3bKUl0&usqp=CAU")
+                                message.channel.send(embed);
 
-                        }
-                    });
+                            }
+                        });
+                    }, 10 * 1000);
+
                 } else {//nessuno taggato e nessun comando secondario: mostra scommesse
                     let embed = new MessageEmbed()
                         .setTitle("Errore (mostra scommesse)")
                     let bets = [];
                     db.all(`SELECT * FROM ${tabBet}`, [], (err, rows) => {
-                        if (err) { throw err;}
+                        if (err) { throw err; }
 
                         rows.forEach((row) => {
 
                             if (row.aperta == 1) {
-                                bets.push(`═════════════\n**${row.id}** | <@${row.idUser1}> VS <@${row.idUser2}> | ${row.punti} :coin: \n ${row.scommessa} `)
+                                bets.push(`═════════════\n**${row.id}** | <@${row.idUser1}> VS <@${row.idUser2}> | ${row.punti} ${friendlyCoin} \n ${row.scommessa} `)
                             }
                             console.log(row);
                         });
