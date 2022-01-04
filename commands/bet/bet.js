@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const fs = require("fs")
 const Discord = require('discord.js')
 const config = require('../../config.json')
-const sql3 require('sqlite3').verbose();
+const sql3 = require('sqlite3').verbose();
 const tabPnt = "punteggi";
 const tabBet = "scommessa";
 
