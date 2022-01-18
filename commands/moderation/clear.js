@@ -1,4 +1,5 @@
 const config = require('../../config.json');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: "clear",
@@ -10,7 +11,7 @@ module.exports = {
     run: async (client, message, args) => {
     const amount = args[0]; 
     let id = message.member.id;
-    if ( id == "342343548718284801" ) {
+    if (config.adminIDs.includes(id)) {
         if (!amount) return message.reply('Specifica quanti messaggi eliminare'); 
         if (isNaN(amount)) return message.reply('Devi mettere un numero'); 
 
@@ -31,7 +32,7 @@ module.exports = {
             .setTitle(':x: Error')
             .setColor(0xff0000)
             .setDescription('Non puoi ');
-            message.channel.send(embed);    }
-
+            message.channel.send(embed);    
+        }
     }
 }
