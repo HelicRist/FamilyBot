@@ -44,21 +44,19 @@ module.exports = {
         const mudaeID = "432610292342587392";
         const mudaeRoleID = "914873251023429713";
         let mudaeBot = await Guild.members.fetch(mudaeID)
-        let mudaeRoleAddd = new cron.CronJob('37 14 * * 1-6', () => {
-        //let mudaeRoleAddd = new cron.CronJob('37 14 * * *', () => {
+        let mudaeRoleAdd = new cron.CronJob('37 14 * * 1-6', () => {
             mudaeBot.roles.add(mudaeRoleID);
         }, null, true, 'Europe/Rome');
         
-      //  mudaeRoleAddd.start()
+        mudaeRoleAdd.start()
 
         //MUDAE REMOVE
         let mudaeRoleRemove = new cron.CronJob('38 21 * * 0-5', () => {
-       // let mudaeRoleRemove = new cron.CronJob('37 21 * * *', () => {
             mudaeBot.roles.remove(mudaeRoleID);
         }, null, true, 'Europe/Rome');
 
 
-        //mudaeRoleRemove.start()
+        mudaeRoleRemove.start()
 
         config.messagesToCheckReactions.forEach(async object => {
             let message = await client.channels.cache.get(object.channelID).messages.fetch(object.messageID);
