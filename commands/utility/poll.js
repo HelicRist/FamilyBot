@@ -6,7 +6,7 @@ module.exports = {
     name: "poll",
     description: `Crea una poll.`,
     aliases: ["domanda"],
-    usage: `${config.prefix}poll <domanda>-<opzione1>-<opzione2>`,
+    usage: `${config.prefix}poll <domanda>;<opzione1>;<opzione2>`,
     category: "fun",
     run: async (client, message, args) => {
 
