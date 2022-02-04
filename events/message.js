@@ -72,8 +72,8 @@ module.exports = {
 
         function createBunker() {
             if (!message.channel.type == "dm") return
-            if(message.content=="bunker"){
-                console.log("sent buker");
+            if(message.content.toLowerCase()=="bunker"){
+
                 const Guild = client.guilds.cache.get("666312151354572801");
                 const channels =  Guild.channels;
                 const categoryID = config.tempChannelsCategoryID
