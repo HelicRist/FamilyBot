@@ -1,3 +1,4 @@
+const { Permissions } = require('discord.js');
 const config = require('../config.json');
 // const PasteClient = require("pastebin-api").default;
 // const pastebin = new PasteClient(config.pastebinKey);
@@ -7,12 +8,12 @@ module.exports = {
     name: 'message',
     description: 'message event',
     run: async (client, message) => {
-      
+
         commandHandler();
         mediaSaver();
+        createBunker();
 
-
-        function commandHandler(){
+        function commandHandler() {
             if (message.author.bot) return;
             if (message.content.startsWith(config.prefix)) {
                 const command = message.content.split(' ')[0].slice(config.prefix.length);
@@ -21,7 +22,7 @@ module.exports = {
                     || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
                 if (commandObject) {
                     commandObject.run(client, message, args);
-    
+
                     let commandEmbed = {
                         title: 'Comando richiamato',
                         description: `${message.author} => ${command}`,
@@ -69,5 +70,40 @@ module.exports = {
 
         }
 
+        function createBunker() {
+            if (!message.channel.type == "dm") return
+            if(message.content=="bunker"){
+                console.log("sent buker");
+                const Guild = client.guilds.cache.get("666312151354572801");
+                const channels =  Guild.channels;
+                const categoryID = config.tempChannelsCategoryID
+                permissions = [
+                    {
+                        id: Guild.roles.everyone,
+                        deny: [Permissions.FLAGS.VIEW_CHANNEL],
+                    },
+                    {
+                        id: config.pancakeRoleId,
+                        allow: [Permissions.FLAGS.VIEW_CHANNEL,Permissions.FLAGS.CONNECT]
+                    }
+
+                ]
+                channels
+                .create("Bunker (Serviva? No) #", {
+                    type: 'voice',
+                    parent: categoryID,
+                    permissionOverwrites: permissions
+                })
+                .then(channel => {
+                   
+                 
+                })
+                .catch(err => {
+                    console.log(err);
+                    console.log(('I was enable to create a temp channel!').red);
+                });
+            }
+
+        }
     }
 }
