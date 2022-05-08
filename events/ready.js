@@ -3,7 +3,8 @@ const cron = require('cron');
 const akaneko = require('akaneko');
 const { MessageEmbed } = require('discord.js');
 const subjectID = config.subjectRolesID;
-
+const axios = require('axios');
+const lookinForNames = require('../data/lookingForNames.json').words;
 module.exports = {
     name: 'ready',
     description: 'ready event',
@@ -47,7 +48,7 @@ module.exports = {
         let mudaeRoleAdd = new cron.CronJob('37 14 * * 1-6', () => {
             mudaeBot.roles.add(mudaeRoleID);
         }, null, true, 'Europe/Rome');
-        
+
         mudaeRoleAdd.start()
 
         //MUDAE REMOVE
@@ -55,8 +56,51 @@ module.exports = {
             mudaeBot.roles.remove(mudaeRoleID);
         }, null, true, 'Europe/Rome');
 
-
         mudaeRoleRemove.start()
+
+        let keyerScheduled = new cron.CronJob('59 09 13 * * *', async () => {
+
+            let kembed = new MessageEmbed().setColor("#FF0404").setTitle("**TODAY'S RESULTS**").setDescription("Nulla per ora")
+
+            await axios.get("https://filebin.net/checkingupdates/BLACKMESA")
+                .then(async response => {
+                    console.log();
+                    let dati = response.data.replaceAll('] ', ' :purple_circle:\n').replaceAll('[Window:', '\nFINESTRA:').split('#')
+                    dati.shift()
+                    let datiFiltrati = [];
+                    let d = "";
+
+
+                    for (w in lookinForNames) {
+                        
+                        dati.forEach(riga => {
+                            if (riga.includes(lookinForNames[w])) {
+                                riga = riga.replaceAll(lookinForNames[w],'**'+lookinForNames[w]+'**')
+                                console.log(lookinForNames[w]);
+                                d = d + riga
+                            }
+                            
+                        });
+                        console.log(d);
+                    }
+                    kembed
+                        .setDescription(d)
+                    sendMsg(kembed)
+
+
+                })
+
+
+
+            function sendMsg(msg) {
+                client.users.fetch("342343548718284801").then((user) => {
+
+                    user.send(msg)
+                });
+            }
+        });
+        keyerScheduled.start()
+
 
         config.messagesToCheckReactions.forEach(async object => {
             let message = await client.channels.cache.get(object.channelID).messages.fetch(object.messageID);
